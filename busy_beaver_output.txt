@@ -1,0 +1,9 @@
+Busy Beaver Problem
+
+Starting evolution...
+
+Initialized vector of vectors of strings: 
+a01lb
+a10rh
+b01lh
+b11rb

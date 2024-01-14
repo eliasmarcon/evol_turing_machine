@@ -7,9 +7,10 @@
 #include <chrono>
 #include <random>
 #include <time.h>
+#include <algorithm>
 
 // if DEBUG is defined then no debug is done
-#define DEBUG
+//#define DEBUG
 #define PRINT_TAPE
 
 using binary = unsigned char;
@@ -303,9 +304,9 @@ std::vector<char> create_states(int num_states, int seed) {
 
 int main() {
 
-	int size_population = 30;
-	int num_states = 3;
-	int num_generations = 100;
+	int size_population = 10;
+	int num_states = 2;
+	int num_generations = 10;
 	int seed = 0;
 
 	std::vector<std::vector<char>> population;

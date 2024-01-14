@@ -1,4 +1,5 @@
 #include <ga/GA2DArrayGenome.h>
+#include <ga/GA1DBinStrGenome.h>
 #include <ga/GASimpleGA.h>
 #include <ga/GASelector.h>
 #include <ga/std_stream.h>
@@ -15,11 +16,21 @@
 #include <unordered_set>
 #include <fstream>
 #include <sstream>
+#include <list>
+
+#include <string>
+#include <cmath>
+#include <bitset>
+#include <time.h>
 
 using namespace std;
 
-const int POPULATION_SIZE = 5; //5
-const int MAX_GENERATIONS = 175000; //200000
+const int POPULATION_SIZE = 1; //5
+const int MAX_GENERATIONS = 10; //200000
+
+int NUM_STATES = 2;
+int const max_1s[] = {1, 4, 6, 13, 4098};
+
 
 /*===========================================================================================*/
 /*===================================== Helper Functions ====================================*/
@@ -47,17 +58,72 @@ void printElapsedTime(const std::chrono::time_point<std::chrono::system_clock>& 
               << std::endl;
 }
 
+// Function to convert integer to character (a, b, c, ...)
+char intToChar(int value) {
+    return static_cast<char>('a' + value);
+}
+
+/*
+// create a Class Turing Machine
+class TuringMachine {
+
+    private:
+
+        char tape [30] = "00000000000000000000000000000";
+    bool hasH = false;
+
+
+    public: 
+
+        // Constructor
+        TuringMachine() {
+            // Initialize your Turing Machine here
+        }
+
+        // If 'h' is not present, replace a random pair's last value with 'h'
+        if (!hasH) {
+            std::random_device rd;
+            std::mt19937 gen(rd());
+
+            // Generate a random index
+            std::uniform_int_distribution<> dist(0, stateTableTuringMachine.size() - 1);
+            int randomIndex = dist(gen);
+
+            // Access the random vector
+            std::string& randomString = stateTableTuringMachine[randomIndex];
+
+            // Replace the last value with 'h'
+            if (!randomString.empty()) {
+                randomString.back() = 'h';
+            }
+
+            // Print the updated stateTableTuringMachine
+            std::cout << "Updated stateTableTuringMachine: " << std::endl;
+            for (const auto& vector : stateTableTuringMachine) {
+                for (const auto& str : vector) {
+                    std::cout << str << ' ';
+                }
+                std::cout << std::endl;
+            }
+            std::cout << std::endl;
+        }
+
+};
+*/
+	
+
 
 
 /*===========================================================================================*/
 /*======================================= GA Functions ======================================*/
 /*===========================================================================================*/
 
-// Objective function for Sudoku
+// Objective function for the Busy Beaver problem
 float objective(GAGenome& g) {
 
-    GA2DArrayGenome<int>& genome = (GA2DArrayGenome<int>&)g;
-    int fitness = 0;
+    GA2DArrayGenome<int> &genome = (GA2DArrayGenome<int> &)g;
+    
+	int fitness = 0;
 
     
     return (float)fitness;
@@ -66,14 +132,63 @@ float objective(GAGenome& g) {
 
 // Initializer
 void initializer(GAGenome& g) {
-    GA2DArrayGenome<int>& genome = (GA2DArrayGenome<int>&)g;
-
     
+    GA2DArrayGenome<int> &genome = (GA2DArrayGenome<int> &)g;
+
+    // Create a vector of vectors of strings
+    std::vector<std::string> stateTableTuringMachine;
+
+    // Initialize the vector with keys 'a0', 'a1', 'b0', 'b1', ..., and empty strings as values
+    for (int state = 0; state < NUM_STATES; ++state) {
+        
+        for (int zero_one = 0; zero_one < 2; ++zero_one) {
+            
+            std::random_device rd;
+            std::mt19937 gen(rd());
+
+            // random 0 or 1 for overwriting the current value
+            int randomNumber = std::uniform_int_distribution<>(0, 1)(gen);
+
+            // random l or r for moving left or right
+            int randomDirection = std::uniform_int_distribution<>(0, 1)(gen);
+
+            // random state to go to with a halt state
+            int randomState = std::uniform_int_distribution<>(0, NUM_STATES)(gen);
+
+            stateTableTuringMachine.push_back(std::to_string(state) + std::to_string(zero_one) + std::to_string(randomNumber) + std::to_string(randomDirection) + std::to_string(randomState));
+        }
+    }
+
+    // // Print the initialized vector of vectors of strings
+	// std::cout << "Initialized string in vector: " << std::endl;
+    // for (const auto& str : stateTableTuringMachine) {
+    //     std::cout << str << std::endl;
+    // }
+    // std::cout << std::endl;
+
+	// Set the genome with the generated genes
+    for (int i = 0; i < genome.width(); ++i) {
+        for (int j = 0; j < genome.height(); ++j) {
+            // cast char to int
+            genome.gene(i, j, stateTableTuringMachine[i][j] - '0');
+        }
+    }
+
+	// Print the genome
+	std::cout << "Initialized genome: " << std::endl;
+	for (int i = 0; i < genome.width(); ++i) {
+        for (int j = 0; j < genome.height(); ++j) {
+            std::cout << genome.gene(i, j);
+        }
+        std::cout << std::endl;
+    }
 }
+
+
 
 // Mutator
 int mutator(GAGenome& g, float p) {
-    GA2DArrayGenome<int>& genome = (GA2DArrayGenome<int>&)g;
+    GA2DArrayGenome<std::string>& genome = (GA2DArrayGenome<std::string>&)g;
 
     int nMutations = 0;
 
@@ -82,19 +197,20 @@ int mutator(GAGenome& g, float p) {
     return nMutations;
 }
 
+
 // Crossover
 int crossover(const GAGenome& p1, const GAGenome& p2, GAGenome* c1, GAGenome* c2) {
-    GA2DArrayGenome<int>& parent1 = (GA2DArrayGenome<int>&)p1;
-    GA2DArrayGenome<int>& parent2 = (GA2DArrayGenome<int>&)p2;
+    GA2DArrayGenome<std::string>& parent1 = (GA2DArrayGenome<std::string>&)p1;
+    GA2DArrayGenome<std::string>& parent2 = (GA2DArrayGenome<std::string>&)p2;
     
     if (c1 && c2) {
-        GA2DArrayGenome<int>& child1 = (GA2DArrayGenome<int>&)*c1;
-        GA2DArrayGenome<int>& child2 = (GA2DArrayGenome<int>&)*c2;
+        GA2DArrayGenome<std::string>& child1 = (GA2DArrayGenome<std::string>&)*c1;
+        GA2DArrayGenome<std::string>& child2 = (GA2DArrayGenome<std::string>&)*c2;
 
 
         return 2;
     } else if (c1) {
-        GA2DArrayGenome<int>& child = (GA2DArrayGenome<int>&)*c1;
+        GA2DArrayGenome<std::string>& child = (GA2DArrayGenome<std::string>&)*c1;
         
         
         return 1;
@@ -159,11 +275,26 @@ int main(int argc, char* argv[]) {
     
     srand(static_cast<unsigned int>(time(nullptr)));
 
+    // // Read number of states from command line
+    // if (argc > 1) {
+
+    //     // Check if the number of states is valid
+    //     if (atoi(argv[1]) < 1 || atoi(argv[1]) > 4) {
+    //         std::cout << "Please enter a number of states between 1 and 4" << std::endl;
+    //         return 0;
+    //     }
+        
+    //     NUM_STATES = atoi(argv[1]);
+    // } else {
+    //     std::cout << "Please enter the number of states between 1 and 4: ";
+    //     std::cin >> NUM_STATES;
+    // }	
 
     // Start measuring time
     auto start_time = std::chrono::high_resolution_clock::now();
 
-    GA2DArrayGenome<float> genome(9, max, objective);
+    GA2DArrayGenome<int> genome(std::pow(NUM_STATES, 2), 5, objective);
+
     genome.initializer(initializer);
     genome.mutator(mutator);
     genome.crossover(crossover);
@@ -181,7 +312,6 @@ int main(int argc, char* argv[]) {
     // Evolve and output information for each generation
     std::cout << "\nStarting evolution...\n\n";
     ga.evolve();
-    GA2DArrayGenome<float> bestGenome = (GA2DArrayGenome<float> &)ga.statistics().bestIndividual();
 
 
     // Stop measuring time
