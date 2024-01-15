@@ -1,9 +1,19 @@
-Busy Beaver Problem
-
 Starting evolution...
 
-Initialized vector of vectors of strings: 
-a01lb
-a10rh
-b01lh
-b11rb
+Initialized genome: 
+00111
+01011
+10112
+11101
+Fitness: 2
+
+Best individual:
+a01rb
+a10rb
+b01rh
+b11lb
+
+Best fitness: 2
+Time taken for evolution: 0 hours, 0 minutes, 0 seconds, and 0 milliseconds
+
+No Busy Beaver found!

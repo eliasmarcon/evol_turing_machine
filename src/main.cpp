@@ -26,10 +26,12 @@
 using namespace std;
 
 const int POPULATION_SIZE = 1; //5
-const int MAX_GENERATIONS = 10; //200000
+const int MAX_GENERATIONS = 0; //200000
 
 int NUM_STATES = 2;
 int const max_1s[] = {1, 4, 6, 13, 4098};
+int const max_steps[] = {500, 1500, 5000, 15000, 1000000};
+std::string const loops[] = {"00000", "00100", "00010", "00110"};
 
 
 /*===========================================================================================*/
@@ -63,55 +65,229 @@ char intToChar(int value) {
     return static_cast<char>('a' + value);
 }
 
-/*
+// check for at least one halt state
+bool checkForHaltState(std::vector<std::string> stateTableTuringMachine){
+
+    // check for at least one halt state
+    for (int i = 0; i < stateTableTuringMachine.size(); ++i) {
+        if (stateTableTuringMachine[i][4] == static_cast<char>(NUM_STATES + '0')) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+// replace random pair
+std::vector<std::string> replaceRandomPair(std::vector<std::string> stateTableTuringMachine){
+
+    std::random_device rd;
+    std::mt19937 gen(rd());
+
+    // Generate a random index
+    std::uniform_int_distribution<> dist(0, stateTableTuringMachine.size() - 1);
+
+    // Replace the last value of the random pair with 'h'
+    stateTableTuringMachine[dist(gen)][4] = NUM_STATES + '0';
+
+    return stateTableTuringMachine;
+}
+
+std::vector<std::string> convertGenomeToVector(GA2DArrayGenome<int> &genome){
+
+    std::vector<std::string> stateTableTuringMachine;
+
+    for (int i = 0; i < genome.width(); ++i) {
+        std::string tempVector;
+        for (int j = 0; j < genome.height(); ++j) {
+            tempVector += std::to_string(genome.gene(i, j));
+        }
+        stateTableTuringMachine.push_back(tempVector);
+    }
+
+    // convert first character to state
+    for (int i = 0; i < stateTableTuringMachine.size(); ++i) {
+        stateTableTuringMachine[i][0] = intToChar(stateTableTuringMachine[i][0] - '0');
+    }
+
+    // convert fourth character to direction
+    for (int i = 0; i < stateTableTuringMachine.size(); ++i) {
+        if (stateTableTuringMachine[i][3] == '0') {
+            stateTableTuringMachine[i][3] = 'l';
+        } else {
+            stateTableTuringMachine[i][3] = 'r';
+        }
+    }
+
+    // convert fifth character to state
+    for (int i = 0; i < stateTableTuringMachine.size(); ++i) {
+
+        // if state is halt state
+        if ( stateTableTuringMachine[i][4] == static_cast<char>(NUM_STATES + '0')){
+            stateTableTuringMachine[i][4] = 'h';
+        } else {
+            stateTableTuringMachine[i][4] = intToChar(stateTableTuringMachine[i][4] - '0');
+        }
+    }
+
+    return stateTableTuringMachine;
+    
+}
+
+void printVector(std::vector<std::string> stateTableTuringMachine){
+
+    for (const auto& str : stateTableTuringMachine) {
+        std::cout << str << std::endl;
+    }
+    std::cout << std::endl;
+}
+
+
 // create a Class Turing Machine
 class TuringMachine {
 
     private:
 
-        char tape [30] = "00000000000000000000000000000";
-    bool hasH = false;
+        std::string tape = "0000000000000000000000000000000";
 
+        int head = tape.size() / 2;
+        int counter_ones = 0;
+        int steps = 0;
+        char initial_state = 'a';
+        char current_state = initial_state;
+
+        std::vector<std::string> stateTableTuringMachine;
 
     public: 
 
         // Constructor
-        TuringMachine() {
+        TuringMachine(std::vector<std::string> stateTableTuringMachine) {
             // Initialize your Turing Machine here
+            this->stateTableTuringMachine = stateTableTuringMachine;
         }
 
-        // If 'h' is not present, replace a random pair's last value with 'h'
-        if (!hasH) {
-            std::random_device rd;
-            std::mt19937 gen(rd());
+        // check for looping for the first state
+        bool checkFirstState(){
 
-            // Generate a random index
-            std::uniform_int_distribution<> dist(0, stateTableTuringMachine.size() - 1);
-            int randomIndex = dist(gen);
+            // check for looping
+            std::string firstState = stateTableTuringMachine[0];
 
-            // Access the random vector
-            std::string& randomString = stateTableTuringMachine[randomIndex];
-
-            // Replace the last value with 'h'
-            if (!randomString.empty()) {
-                randomString.back() = 'h';
-            }
-
-            // Print the updated stateTableTuringMachine
-            std::cout << "Updated stateTableTuringMachine: " << std::endl;
-            for (const auto& vector : stateTableTuringMachine) {
-                for (const auto& str : vector) {
-                    std::cout << str << ' ';
+            for (const std::string& str : loops) {
+                if (str == firstState) {
+                    return true;
                 }
-                std::cout << std::endl;
             }
-            std::cout << std::endl;
+
+            return false;
         }
 
-};
-*/
-	
+        int run(){
 
+            // std::cout << "original head: " << head << std::endl;
+            // std::cout << "original tape: " << tape << std::endl;
+
+            while (current_state != 'h' && steps < max_steps[NUM_STATES - 1] && !checkFirstState()){
+
+                // read value from tape
+                char tape_value = tape[head];
+
+                // find the current state in the state table
+                for (int i = 0; i < stateTableTuringMachine.size(); ++i) {
+                    if (stateTableTuringMachine[i][0] == current_state && stateTableTuringMachine[i][1] == tape_value) {
+
+                        // write new value to tape
+                        tape[head] = stateTableTuringMachine[i][2];
+
+                        // move head and check for out of bounds
+                        if (stateTableTuringMachine[i][3] == 'l') {
+                            // check for out of bounds
+                            if (head == 0) {
+                                tape.insert(0, "0");
+                                head = 0;
+                            } else {
+                                head--;
+                            }
+                        } else {
+                            // check for out of bounds
+                            if (head == tape.size() - 1) {
+                                tape.push_back('0');
+                            }
+                            head++;
+                        }
+
+                        // update current state
+                        current_state = stateTableTuringMachine[i][4];
+
+                        // update steps
+                        steps++;
+
+                        if (steps % 1000 == 0){
+                            std::cout << "steps: " << steps << std::endl;
+                            // std::cout << "head: " << head << std::endl;
+                            // std::cout << "tape: " << tape << std::endl;
+                            // std::cout << std::endl;
+                        }
+
+                        break;
+                    }
+                }
+            }
+
+            // count number of ones
+            for (int i = 0; i < tape.size(); ++i) {
+                if (tape[i] == '1') {
+                    counter_ones++;
+                }
+            }
+
+            // // print head and tape
+            // std::cout << "final head: " << head << std::endl;
+            // std::cout << "final tape: " << tape << std::endl;
+
+            return counter_ones;
+        }
+};
+
+void saveBusyBeaver(int POPULATION_SIZE, int MAX_GENERATIONS, std::vector<std::string> bestVector, int bestFitness, int NUM_STATES, 
+                    const std::chrono::time_point<std::chrono::system_clock>& start_time,
+                    const std::chrono::time_point<std::chrono::system_clock>& end_time){
+
+    std::ofstream myfile;
+    std::string filename = "./busy_beaver_solutions/busy_beaver_" + std::to_string(NUM_STATES) + ".txt";
+    myfile.open (filename, std::ios_base::app);
+
+    myfile << "Population size: " << POPULATION_SIZE << std::endl;
+    myfile << "Max generations: " << MAX_GENERATIONS << std::endl;
+    myfile << "Number of states: " << NUM_STATES << std::endl << std::endl;
+    
+    myfile << "Best vector: " << std::endl;
+    for (const auto& str : bestVector) {
+        myfile << str << std::endl;
+    }
+    
+    myfile << "\nBest fitness: " << bestFitness << std::endl;
+    
+    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
+
+    // Calculate hours, minutes, seconds, and milliseconds
+    auto hours = std::chrono::duration_cast<std::chrono::hours>(duration);
+    duration -= hours;
+    auto minutes = std::chrono::duration_cast<std::chrono::minutes>(duration);
+    duration -= minutes;
+    auto seconds = std::chrono::duration_cast<std::chrono::seconds>(duration);
+    duration -= seconds;
+    auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(duration);
+
+    // Print elapsed time in hours, minutes, seconds, and milliseconds
+    myfile << "\nTime taken for evolution: " << hours.count() << " hours, "
+              << minutes.count() << " minutes, "
+              << seconds.count() << " seconds, and "
+              << milliseconds.count() << " milliseconds\n"
+              << std::endl;
+
+    myfile << "--------------------------------------------------------------------------------" << std::endl << std::endl;
+    myfile.close();
+}
 
 
 /*===========================================================================================*/
@@ -125,7 +301,29 @@ float objective(GAGenome& g) {
     
 	int fitness = 0;
 
-    
+    // convert genome to vector
+    std::vector<std::string> stateTableTuringMachine = convertGenomeToVector(genome);
+
+    // // Print the initialized vector of vectors of strings
+    // std::cout << "\nInitialized vector of vectors of strings: " << std::endl;
+    // for (const auto& str : stateTableTuringMachine) {
+    //     std::cout << str << std::endl;
+    // }
+    // std::cout << std::endl;
+
+    // create a Turing Machine
+    TuringMachine turingMachine(stateTableTuringMachine);
+
+    // run the Turing Machine
+    fitness = turingMachine.run();
+
+    if (fitness > max_1s[NUM_STATES - 1]) {
+        fitness = 0;
+    }
+
+    // Print the fitness
+    std::cout << "Fitness: " << fitness << std::endl;
+
     return (float)fitness;
 }
 
@@ -159,12 +357,12 @@ void initializer(GAGenome& g) {
         }
     }
 
-    // // Print the initialized vector of vectors of strings
-	// std::cout << "Initialized string in vector: " << std::endl;
-    // for (const auto& str : stateTableTuringMachine) {
-    //     std::cout << str << std::endl;
-    // }
-    // std::cout << std::endl;
+    // check halt state
+    bool hasH = checkForHaltState(stateTableTuringMachine);
+
+    if (!hasH){
+        stateTableTuringMachine = replaceRandomPair(stateTableTuringMachine);
+    }
 
 	// Set the genome with the generated genes
     for (int i = 0; i < genome.width(); ++i) {
@@ -188,11 +386,47 @@ void initializer(GAGenome& g) {
 
 // Mutator
 int mutator(GAGenome& g, float p) {
-    GA2DArrayGenome<std::string>& genome = (GA2DArrayGenome<std::string>&)g;
+    GA2DArrayGenome<int>& genome = (GA2DArrayGenome<int>&)g;
 
     int nMutations = 0;
 
-    std::default_random_engine rng(std::random_device{}());
+    // mutate
+    for (int i = 0; i < genome.width(); ++i) {
+        for (int j = 2; j < genome.height(); ++j) {
+
+            std::default_random_engine rng(std::random_device{}());
+
+            if (GAFlipCoin(p)) {
+
+                if (j == genome.height() - 1){
+                    int newRandomState = std::uniform_int_distribution<>(0, NUM_STATES)(rng);
+                    genome.gene(i, j, newRandomState);
+                }else{
+                    int newValue = std::uniform_int_distribution<>(0, 1)(rng);
+                    genome.gene(i, j, newValue);
+                }
+
+                nMutations++;
+            }
+        }
+    }
+
+    // check halt state
+    std::vector<std::string> stateTableTuringMachine = convertGenomeToVector(genome);
+
+    bool hasH = checkForHaltState(stateTableTuringMachine);
+
+    if (!hasH){
+        stateTableTuringMachine = replaceRandomPair(stateTableTuringMachine);
+    }
+
+    // Set the genome with the generated genes
+    for (int i = 0; i < genome.width(); ++i) {
+        for (int j = 0; j < genome.height(); ++j) {
+            // cast char to int
+            genome.gene(i, j, stateTableTuringMachine[i][j] - '0');
+        }
+    }
 
     return nMutations;
 }
@@ -200,19 +434,51 @@ int mutator(GAGenome& g, float p) {
 
 // Crossover
 int crossover(const GAGenome& p1, const GAGenome& p2, GAGenome* c1, GAGenome* c2) {
-    GA2DArrayGenome<std::string>& parent1 = (GA2DArrayGenome<std::string>&)p1;
-    GA2DArrayGenome<std::string>& parent2 = (GA2DArrayGenome<std::string>&)p2;
+
+    GA2DArrayGenome<int>& parent1 = (GA2DArrayGenome<int>&)p1;
+    GA2DArrayGenome<int>& parent2 = (GA2DArrayGenome<int>&)p2;
     
     if (c1 && c2) {
-        GA2DArrayGenome<std::string>& child1 = (GA2DArrayGenome<std::string>&)*c1;
-        GA2DArrayGenome<std::string>& child2 = (GA2DArrayGenome<std::string>&)*c2;
+        GA2DArrayGenome<int>& child1 = (GA2DArrayGenome<int>&)*c1;
+        GA2DArrayGenome<int>& child2 = (GA2DArrayGenome<int>&)*c2;
 
+        std::default_random_engine rng(std::random_device{}());
+
+        // create cutoff point
+        int cutoff = std::uniform_int_distribution<>(0, parent1.width() - 1)(rng);
+
+        // create children
+        for (int i = 0; i < parent1.width(); ++i) {
+            for (int j = 0; j < parent1.height(); ++j) {
+                if (i < cutoff) {
+                    child1.gene(i, j, parent1.gene(i, j));
+                    child2.gene(i, j, parent2.gene(i, j));
+                } else {
+                    child1.gene(i, j, parent2.gene(i, j));
+                    child2.gene(i, j, parent1.gene(i, j));
+                }
+            }
+        }
 
         return 2;
     } else if (c1) {
-        GA2DArrayGenome<std::string>& child = (GA2DArrayGenome<std::string>&)*c1;
-        
-        
+        GA2DArrayGenome<int>& child = (GA2DArrayGenome<int>&)*c1;
+
+        std::default_random_engine rng(std::random_device{}());
+
+        // create cutoff point
+        int cutoff = std::uniform_int_distribution<>(0, parent1.width() - 1)(rng);
+
+        // create child
+        for (int i = 0; i < parent1.width(); ++i) {
+            for (int j = 0; j < parent1.height(); ++j) {
+                if (i < cutoff) {
+                    child.gene(i, j, parent1.gene(i, j));
+                } else {
+                    child.gene(i, j, parent2.gene(i, j));
+                }
+            }
+        }
         return 1;
     } else {
         return 0;
@@ -310,16 +576,32 @@ int main(int argc, char* argv[]) {
     ga.selector(selector);
 
     // Evolve and output information for each generation
-    std::cout << "\nStarting evolution...\n\n";
+    std::cout << "Starting evolution...\n\n";
     ga.evolve();
-
+    GA2DArrayGenome<int> bestGenome = (GA2DArrayGenome<int> &)ga.statistics().bestIndividual();
 
     // Stop measuring time
     auto end_time = chrono::high_resolution_clock::now();
+    
+
+    // Print the best individual
+    std::cout << "\nBest individual:" << std::endl;
+    std::vector<std::string> bestVector = convertGenomeToVector(bestGenome);
+    printVector(bestVector);
+
+    // best fitness
+    int bestFitness = ga.statistics().bestIndividual().score();
+    std::cout << "Best fitness: " << bestFitness << std::endl;
 
     // Print elapsed time
     printElapsedTime(start_time, end_time);
 
+    if (bestFitness == max_1s[NUM_STATES - 1]) {
+        std::cout << "Busy Beaver found! Values are saved into ./busy_beaver_solutions/.." << std::endl;
+        saveBusyBeaver(POPULATION_SIZE, MAX_GENERATIONS, bestVector, bestFitness, NUM_STATES, start_time, end_time);
+    } else {
+        std::cout << "No Busy Beaver found!" << std::endl;
+    }
 
     return 0;
 }
