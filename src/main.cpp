@@ -31,6 +31,7 @@ int MAX_GENERATIONS = 1; //200000
 
 const int max_1s[] = {1, 4, 6, 13, 4098};
 const int max_steps[] = {500, 1500, 5000, 15000, 1000000};
+const std::string busy_beaver_filename = "./busy_beaver_solutions/busy_beaver_";
 
 std::string const loops[] = {"00000", "00100", "00010", "00110"};
 
@@ -277,12 +278,12 @@ class TuringMachine {
 };
 
 bool checkIfBeaverExists(std::vector<std::string> bestVector, int& existingPopulationSize, int& existingMaxGenerations) {
-    std::ifstream file("./busy_beaver_solutions/busy_beaver_" + std::to_string(NUM_STATES) + ".txt");
+    std::ifstream file(busy_beaver_filename + std::to_string(NUM_STATES) + "_states.txt");
     std::string line;
 
     while (std::getline(file, line)) {
         
-        if (line.find("Best vector:") != std::string::npos) {
+        if (line.find("Busy Beaver:") != std::string::npos) {
             // Read the best vector from the file
             std::vector<std::string> existingVector;
             for (int i = 0; i < bestVector.size(); ++i) {
@@ -311,18 +312,18 @@ void saveBusyBeaver(int POPULATION_SIZE, int MAX_GENERATIONS, std::vector<std::s
 
     } else {
 
-        std::cout << "Values are saved into ./busy_beaver_solutions/busy_beaver_" << NUM_STATES << ".txt"  << std::endl;
+        std::cout << "Values are saved into" << busy_beaver_filename + std::to_string(NUM_STATES) + "_states.txt" << std::endl;
 
         // Vector does not exist, save the new values
         std::ofstream myfile;
-        std::string filename = "./busy_beaver_solutions/busy_beaver_" + std::to_string(NUM_STATES) + ".txt";
+        std::string filename = busy_beaver_filename + std::to_string(NUM_STATES) + "_states.txt";
         myfile.open(filename, std::ios_base::app);
 
         myfile << "Population size: " << POPULATION_SIZE << std::endl;
         myfile << "Max generations: " << MAX_GENERATIONS << std::endl;
         myfile << "Number of states: " << NUM_STATES << std::endl << std::endl;
 
-        myfile << "Best vector: " << std::endl;
+        myfile << "Busy Beaver: " << std::endl;
         for (const auto& str : bestVector) {
             myfile << str << std::endl;
         }

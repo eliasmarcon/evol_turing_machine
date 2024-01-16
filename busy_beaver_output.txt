@@ -4,6 +4,6 @@ Best individual:
 a01rh
 
 Best fitness: 1
-Time taken for evolution: 0 hours, 0 minutes, 0 seconds, and 572 milliseconds
+Time taken for evolution: 0 hours, 0 minutes, 0 seconds, and 347 milliseconds
 
-Busy Beaver found! Values are saved into ./busy_beaver_solutions/busy_beaver_1.txt
+Busy Beaver found! Values are saved into./busy_beaver_solutions/busy_beaver_1_states.txt

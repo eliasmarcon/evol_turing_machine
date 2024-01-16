@@ -2,12 +2,12 @@ Population size: 10
 Max generations: 10
 Number of states: 1
 
-Best vector: 
+Busy Beaver: 
 a01lh
 
 Best fitness: 1
 
-Time taken for evolution: 0 hours, 0 minutes, 0 seconds, and 753 milliseconds
+Time taken for evolution: 0 hours, 0 minutes, 0 seconds, and 910 milliseconds
 
 --------------------------------------------------------------------------------
 
@@ -15,12 +15,12 @@ Population size: 10
 Max generations: 10
 Number of states: 1
 
-Best vector: 
+Busy Beaver: 
 a01rh
 
 Best fitness: 1
 
-Time taken for evolution: 0 hours, 0 minutes, 0 seconds, and 572 milliseconds
+Time taken for evolution: 0 hours, 0 minutes, 0 seconds, and 347 milliseconds
 
 --------------------------------------------------------------------------------
 
