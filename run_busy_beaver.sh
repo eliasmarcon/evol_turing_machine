@@ -1,9 +1,15 @@
 #!/bin/bash
 
-if [ "$#" -eq 1 ]; then
+if [ "$#" -eq 3 ]; then
     
     # set number of states
     num_states=$1
+
+    # set population size
+    population_size=$2
+
+    # set number of generations
+    num_generations=$3
 
     # check if number of states is valid (between 1 and 4)
     if [ "$num_states" -lt 1 ] || [ "$num_states" -gt 4 ]; then
@@ -12,8 +18,8 @@ if [ "$#" -eq 1 ]; then
     fi
 
 else
-    # set default number of states
-    num_states=2
+    echo "Usage: ./run_busy_beaver.sh <num_states> <population_size> <num_generations>"
+    exit 1
 fi
 
 output_file="./busy_beaver_output.txt"
@@ -31,7 +37,7 @@ if [ $? -eq 0 ]; then
     echo "Compilation of Busy Beaver Problem was successful. Running the program..."
 
     # Run the compiled program and append the output to the file
-    "$output_executable" "$num_states" >> "$output_file" 
+    "$output_executable" "$num_states" "$population_size" "$num_generations" >> "$output_file" 
 
     echo "Results saved into $output_file."
 else

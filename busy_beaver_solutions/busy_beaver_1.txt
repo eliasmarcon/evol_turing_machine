@@ -1,0 +1,26 @@
+Population size: 10
+Max generations: 10
+Number of states: 1
+
+Best vector: 
+a01lh
+
+Best fitness: 1
+
+Time taken for evolution: 0 hours, 0 minutes, 0 seconds, and 753 milliseconds
+
+--------------------------------------------------------------------------------
+
+Population size: 10
+Max generations: 10
+Number of states: 1
+
+Best vector: 
+a01rh
+
+Best fitness: 1
+
+Time taken for evolution: 0 hours, 0 minutes, 0 seconds, and 572 milliseconds
+
+--------------------------------------------------------------------------------
+

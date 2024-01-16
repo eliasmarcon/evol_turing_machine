@@ -1,19 +1,9 @@
 Starting evolution...
 
-Initialized genome: 
-00111
-01011
-10112
-11101
-Fitness: 2
-
 Best individual:
-a01rb
-a10rb
-b01rh
-b11lb
+a01rh
 
-Best fitness: 2
-Time taken for evolution: 0 hours, 0 minutes, 0 seconds, and 0 milliseconds
+Best fitness: 1
+Time taken for evolution: 0 hours, 0 minutes, 0 seconds, and 572 milliseconds
 
-No Busy Beaver found!
+Busy Beaver found! Values are saved into ./busy_beaver_solutions/busy_beaver_1.txt

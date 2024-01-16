@@ -25,12 +25,13 @@
 
 using namespace std;
 
-const int POPULATION_SIZE = 1; //5
-const int MAX_GENERATIONS = 0; //200000
-
 int NUM_STATES = 2;
-int const max_1s[] = {1, 4, 6, 13, 4098};
-int const max_steps[] = {500, 1500, 5000, 15000, 1000000};
+int POPULATION_SIZE = 2; //5
+int MAX_GENERATIONS = 1; //200000
+
+const int max_1s[] = {1, 4, 6, 13, 4098};
+const int max_steps[] = {500, 1500, 5000, 15000, 1000000};
+
 std::string const loops[] = {"00000", "00100", "00010", "00110"};
 
 
@@ -66,11 +67,11 @@ char intToChar(int value) {
 }
 
 // check for at least one halt state
-bool checkForHaltState(std::vector<std::string> stateTableTuringMachine){
+bool checkForHaltState(GA2DArrayGenome<int> &genome){
 
     // check for at least one halt state
-    for (int i = 0; i < stateTableTuringMachine.size(); ++i) {
-        if (stateTableTuringMachine[i][4] == static_cast<char>(NUM_STATES + '0')) {
+    for (int i = 0; i < genome.width(); ++i) {
+        if (genome.gene(i, 4) == NUM_STATES) {
             return true;
         }
     }
@@ -79,19 +80,46 @@ bool checkForHaltState(std::vector<std::string> stateTableTuringMachine){
 }
 
 // replace random pair
-std::vector<std::string> replaceRandomPair(std::vector<std::string> stateTableTuringMachine){
+GA2DArrayGenome<int> replaceRandomPair(GA2DArrayGenome<int> &genome){
 
     std::random_device rd;
     std::mt19937 gen(rd());
 
     // Generate a random index
-    std::uniform_int_distribution<> dist(0, stateTableTuringMachine.size() - 1);
+    std::uniform_int_distribution<> dist(0, genome.width() - 1);
 
-    // Replace the last value of the random pair with 'h'
-    stateTableTuringMachine[dist(gen)][4] = NUM_STATES + '0';
+    // Replace the last value with a halt state
+    genome.gene(dist(gen), 4, NUM_STATES);
 
-    return stateTableTuringMachine;
+    return genome;
 }
+
+// bool checkForHaltState(std::vector<std::string> stateTableTuringMachine){
+
+//     // check for at least one halt state
+//     for (int i = 0; i < stateTableTuringMachine.size(); ++i) {
+//         if (stateTableTuringMachine[i][4] == 'h') {
+//             return true;
+//         }
+//     }
+
+//     return false;
+// }
+
+// // replace random pair
+// std::vector<std::string> replaceRandomPair(std::vector<std::string> stateTableTuringMachine){
+
+//     std::random_device rd;
+//     std::mt19937 gen(rd());
+
+//     // Generate a random index
+//     std::uniform_int_distribution<> dist(0, stateTableTuringMachine.size() - 1);
+
+//     // Replace the last value with a halt state
+//     stateTableTuringMachine[dist(gen)][4] = NUM_STATES + '0';
+
+//     return stateTableTuringMachine;
+// }
 
 std::vector<std::string> convertGenomeToVector(GA2DArrayGenome<int> &genome){
 
@@ -221,12 +249,12 @@ class TuringMachine {
                         // update steps
                         steps++;
 
-                        if (steps % 1000 == 0){
-                            std::cout << "steps: " << steps << std::endl;
-                            // std::cout << "head: " << head << std::endl;
-                            // std::cout << "tape: " << tape << std::endl;
-                            // std::cout << std::endl;
-                        }
+                        // if (steps % 1000 == 0){
+                        //     std::cout << "steps: " << steps << std::endl;
+                        //     // std::cout << "head: " << head << std::endl;
+                        //     // std::cout << "tape: " << tape << std::endl;
+                        //     // std::cout << std::endl;
+                        // }
 
                         break;
                     }
@@ -248,47 +276,81 @@ class TuringMachine {
         }
 };
 
-void saveBusyBeaver(int POPULATION_SIZE, int MAX_GENERATIONS, std::vector<std::string> bestVector, int bestFitness, int NUM_STATES, 
-                    const std::chrono::time_point<std::chrono::system_clock>& start_time,
-                    const std::chrono::time_point<std::chrono::system_clock>& end_time){
+bool checkIfBeaverExists(std::vector<std::string> bestVector, int& existingPopulationSize, int& existingMaxGenerations) {
+    std::ifstream file("./busy_beaver_solutions/busy_beaver_" + std::to_string(NUM_STATES) + ".txt");
+    std::string line;
 
-    std::ofstream myfile;
-    std::string filename = "./busy_beaver_solutions/busy_beaver_" + std::to_string(NUM_STATES) + ".txt";
-    myfile.open (filename, std::ios_base::app);
-
-    myfile << "Population size: " << POPULATION_SIZE << std::endl;
-    myfile << "Max generations: " << MAX_GENERATIONS << std::endl;
-    myfile << "Number of states: " << NUM_STATES << std::endl << std::endl;
-    
-    myfile << "Best vector: " << std::endl;
-    for (const auto& str : bestVector) {
-        myfile << str << std::endl;
+    while (std::getline(file, line)) {
+        
+        if (line.find("Best vector:") != std::string::npos) {
+            // Read the best vector from the file
+            std::vector<std::string> existingVector;
+            for (int i = 0; i < bestVector.size(); ++i) {
+                std::getline(file, line);
+                existingVector.push_back(line);
+            }
+            if (existingVector == bestVector) {
+                return true; // The vector already exists
+            }
+        }
     }
-    
-    myfile << "\nBest fitness: " << bestFitness << std::endl;
-    
-    auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
 
-    // Calculate hours, minutes, seconds, and milliseconds
-    auto hours = std::chrono::duration_cast<std::chrono::hours>(duration);
-    duration -= hours;
-    auto minutes = std::chrono::duration_cast<std::chrono::minutes>(duration);
-    duration -= minutes;
-    auto seconds = std::chrono::duration_cast<std::chrono::seconds>(duration);
-    duration -= seconds;
-    auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(duration);
-
-    // Print elapsed time in hours, minutes, seconds, and milliseconds
-    myfile << "\nTime taken for evolution: " << hours.count() << " hours, "
-              << minutes.count() << " minutes, "
-              << seconds.count() << " seconds, and "
-              << milliseconds.count() << " milliseconds\n"
-              << std::endl;
-
-    myfile << "--------------------------------------------------------------------------------" << std::endl << std::endl;
-    myfile.close();
+    return false; // The vector does not exist
 }
 
+void saveBusyBeaver(int POPULATION_SIZE, int MAX_GENERATIONS, std::vector<std::string> bestVector, int bestFitness, int NUM_STATES, 
+                    const std::chrono::time_point<std::chrono::system_clock>& start_time,
+                    const std::chrono::time_point<std::chrono::system_clock>& end_time) {
+
+    int existingPopulationSize = 0;
+    int existingMaxGenerations = 0;
+
+    if (checkIfBeaverExists(bestVector, existingPopulationSize, existingMaxGenerations)) {
+        
+        std::cout << "But Busy Beaver already exists!" << std::endl;
+
+    } else {
+
+        std::cout << "Values are saved into ./busy_beaver_solutions/busy_beaver_" << NUM_STATES << ".txt"  << std::endl;
+
+        // Vector does not exist, save the new values
+        std::ofstream myfile;
+        std::string filename = "./busy_beaver_solutions/busy_beaver_" + std::to_string(NUM_STATES) + ".txt";
+        myfile.open(filename, std::ios_base::app);
+
+        myfile << "Population size: " << POPULATION_SIZE << std::endl;
+        myfile << "Max generations: " << MAX_GENERATIONS << std::endl;
+        myfile << "Number of states: " << NUM_STATES << std::endl << std::endl;
+
+        myfile << "Best vector: " << std::endl;
+        for (const auto& str : bestVector) {
+            myfile << str << std::endl;
+        }
+
+        myfile << "\nBest fitness: " << bestFitness << std::endl;
+
+        auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
+
+        // Calculate hours, minutes, seconds, and milliseconds
+        auto hours = std::chrono::duration_cast<std::chrono::hours>(duration);
+        duration -= hours;
+        auto minutes = std::chrono::duration_cast<std::chrono::minutes>(duration);
+        duration -= minutes;
+        auto seconds = std::chrono::duration_cast<std::chrono::seconds>(duration);
+        duration -= seconds;
+        auto milliseconds = std::chrono::duration_cast<std::chrono::milliseconds>(duration);
+
+        // Print elapsed time in hours, minutes, seconds, and milliseconds
+        myfile << "\nTime taken for evolution: " << hours.count() << " hours, "
+            << minutes.count() << " minutes, "
+            << seconds.count() << " seconds, and "
+            << milliseconds.count() << " milliseconds\n"
+            << std::endl;
+
+        myfile << "--------------------------------------------------------------------------------" << std::endl << std::endl;
+        myfile.close();
+    }
+}
 
 /*===========================================================================================*/
 /*======================================= GA Functions ======================================*/
@@ -304,13 +366,6 @@ float objective(GAGenome& g) {
     // convert genome to vector
     std::vector<std::string> stateTableTuringMachine = convertGenomeToVector(genome);
 
-    // // Print the initialized vector of vectors of strings
-    // std::cout << "\nInitialized vector of vectors of strings: " << std::endl;
-    // for (const auto& str : stateTableTuringMachine) {
-    //     std::cout << str << std::endl;
-    // }
-    // std::cout << std::endl;
-
     // create a Turing Machine
     TuringMachine turingMachine(stateTableTuringMachine);
 
@@ -322,7 +377,7 @@ float objective(GAGenome& g) {
     }
 
     // Print the fitness
-    std::cout << "Fitness: " << fitness << std::endl;
+    // std::cout << "Fitness: " << fitness << std::endl;
 
     return (float)fitness;
 }
@@ -357,13 +412,6 @@ void initializer(GAGenome& g) {
         }
     }
 
-    // check halt state
-    bool hasH = checkForHaltState(stateTableTuringMachine);
-
-    if (!hasH){
-        stateTableTuringMachine = replaceRandomPair(stateTableTuringMachine);
-    }
-
 	// Set the genome with the generated genes
     for (int i = 0; i < genome.width(); ++i) {
         for (int j = 0; j < genome.height(); ++j) {
@@ -372,14 +420,22 @@ void initializer(GAGenome& g) {
         }
     }
 
-	// Print the genome
-	std::cout << "Initialized genome: " << std::endl;
-	for (int i = 0; i < genome.width(); ++i) {
-        for (int j = 0; j < genome.height(); ++j) {
-            std::cout << genome.gene(i, j);
-        }
-        std::cout << std::endl;
+    // check halt state
+    bool hasH = checkForHaltState(genome);
+
+    if (!hasH){
+        genome = replaceRandomPair(genome);
     }
+
+	// // Print the genome
+	// std::cout << "Initialized genome: " << std::endl;
+	// for (int i = 0; i < genome.width(); ++i) {
+    //     for (int j = 0; j < genome.height(); ++j) {
+    //         std::cout << genome.gene(i, j);
+    //     }
+    //     std::cout << std::endl;
+    // }
+    // std::cout << std::endl;
 }
 
 
@@ -412,20 +468,10 @@ int mutator(GAGenome& g, float p) {
     }
 
     // check halt state
-    std::vector<std::string> stateTableTuringMachine = convertGenomeToVector(genome);
-
-    bool hasH = checkForHaltState(stateTableTuringMachine);
+    bool hasH = checkForHaltState(genome);
 
     if (!hasH){
-        stateTableTuringMachine = replaceRandomPair(stateTableTuringMachine);
-    }
-
-    // Set the genome with the generated genes
-    for (int i = 0; i < genome.width(); ++i) {
-        for (int j = 0; j < genome.height(); ++j) {
-            // cast char to int
-            genome.gene(i, j, stateTableTuringMachine[i][j] - '0');
-        }
+        genome = replaceRandomPair(genome);
     }
 
     return nMutations;
@@ -437,7 +483,7 @@ int crossover(const GAGenome& p1, const GAGenome& p2, GAGenome* c1, GAGenome* c2
 
     GA2DArrayGenome<int>& parent1 = (GA2DArrayGenome<int>&)p1;
     GA2DArrayGenome<int>& parent2 = (GA2DArrayGenome<int>&)p2;
-    
+
     if (c1 && c2) {
         GA2DArrayGenome<int>& child1 = (GA2DArrayGenome<int>&)*c1;
         GA2DArrayGenome<int>& child2 = (GA2DArrayGenome<int>&)*c2;
@@ -479,6 +525,7 @@ int crossover(const GAGenome& p1, const GAGenome& p2, GAGenome* c1, GAGenome* c2
                 }
             }
         }
+
         return 1;
     } else {
         return 0;
@@ -541,20 +588,14 @@ int main(int argc, char* argv[]) {
     
     srand(static_cast<unsigned int>(time(nullptr)));
 
-    // // Read number of states from command line
-    // if (argc > 1) {
-
-    //     // Check if the number of states is valid
-    //     if (atoi(argv[1]) < 1 || atoi(argv[1]) > 4) {
-    //         std::cout << "Please enter a number of states between 1 and 4" << std::endl;
-    //         return 0;
-    //     }
-        
-    //     NUM_STATES = atoi(argv[1]);
-    // } else {
-    //     std::cout << "Please enter the number of states between 1 and 4: ";
-    //     std::cin >> NUM_STATES;
-    // }	
+    // Read number of states from command line
+    if (argc == 4) {
+        NUM_STATES = atoi(argv[1]);
+        POPULATION_SIZE = atoi(argv[2]);
+        MAX_GENERATIONS = atoi(argv[3]);
+    } else {
+        exit(0);
+    }	
 
     // Start measuring time
     auto start_time = std::chrono::high_resolution_clock::now();
@@ -569,14 +610,14 @@ int main(int argc, char* argv[]) {
     ga.populationSize(POPULATION_SIZE);
     ga.pMutation(0.1);
     ga.pCrossover(0.9);
-    ga.minimaxi(GAGeneticAlgorithm::MAXIMIZE);
-    ga.set(gaNnGenerations, MAX_GENERATIONS);
+    // ga.minimaxi(GAGeneticAlgorithm::MAXIMIZE);
+    // ga.set(gaNnGenerations, MAX_GENERATIONS);
 
-    BestSelector selector;
-    ga.selector(selector);
+    // BestSelector selector;
+    // ga.selector(selector);
 
     // Evolve and output information for each generation
-    std::cout << "Starting evolution...\n\n";
+    std::cout << "Starting evolution...\n";
     ga.evolve();
     GA2DArrayGenome<int> bestGenome = (GA2DArrayGenome<int> &)ga.statistics().bestIndividual();
 
@@ -597,7 +638,7 @@ int main(int argc, char* argv[]) {
     printElapsedTime(start_time, end_time);
 
     if (bestFitness == max_1s[NUM_STATES - 1]) {
-        std::cout << "Busy Beaver found! Values are saved into ./busy_beaver_solutions/.." << std::endl;
+        std::cout << "Busy Beaver found! ";
         saveBusyBeaver(POPULATION_SIZE, MAX_GENERATIONS, bestVector, bestFitness, NUM_STATES, start_time, end_time);
     } else {
         std::cout << "No Busy Beaver found!" << std::endl;
