@@ -8,6 +8,7 @@ The program uses a genetic algorithm to evolve a solution to the Busy Beaver pro
 
 Key Components:
 
+- The Turing Machine always begins in **state a**  with an **infinite tape that contains all 0s in the beginning and always starts in the middle of the tape. Thus, the initial symbol read from the tape is a 0**.
 - It defines the fitness function (objective) based on the number of ones on the tape and checks for a valid solution within the specified maximum steps.
 - The genetic algorithm is configured with a population size, mutation and crossover probabilities, and a maximum number of generations.
 - The program evolves a population of state transition tables to find the best solution for the Busy Beaver problem.
@@ -18,7 +19,30 @@ Note: The program checks if the found solution matches the known maximum ones an
 - **the population size**
 - **the maximum number of generations**
 
-**Also, the Turing Machine does not run forever. Each number of states has a unique stopping number. So if the Turing machine has made the same number of steps as the stopping number it automatically stops, in order to not take forever.** 
+**Also, the Turing Machine does not run forever. Each number of states has a unique stopping number S(n). So if the Turing machine has made the same number of steps as the stopping number it automatically stops. This is because for a given n, if S(n) is known then all n-state Turing machines can (in principle) be run for up to S(n) steps, at which point any machine that hasn't yet halted will never halt.** 
+
+## State Table Example/Interpretation
+
+Also important to know is how the states are made, for example in a 2-symbol and 2-state Turing Machine with the following step of a state table "00112":
+
+- **First character is the Current State:** the current state is 0.
+- **Second character is the Tape Content:** The content of the tape is examined at the current head position. In this case, the head is at position '0', and the tape content at this position is '0'.
+- **Thrid character is the Action based on State and Tape Content:** According to the rules specified in the configuration, when the Turing Machine is in state '0' and reads '0' from the tape, it performs the following action:
+
+  - Write '1' on the tape at the current head position. (if the 1 would be a 0 it would write a '0' on the position)
+- **Fourth character is the Update/Move Head Position:** after the current value of the tape is updated the head is moved according to the action:
+
+  - Updated Head Position: Moved one position to the right. (if the 1 would be a 0 it would move to the left)
+- **Fifth character is the Next State:** The state is now '2', and subsequent steps will be executed based on the rules defined for state '2'. (state '2' is in this case the halting state, because its a 2-state Turing Machine (so the halt state is always n-state). So the Turing machine would halt and therefore stop)
+
+
+| m-symbol, n-state Turing Machine Example | Genome Input | Turing Machine Input |
+| :--------: | :--------: | :--------: |
+| 2-symbol, 2-state Turing Machine | 00111 <br> 01101 <br> 10100 <br> 11112 | a01rb <br> a11lb <br> b01la <br> b11rh |
+| 2-symbol, 3-state Turing Machine | 00112 <br> 01101 <br> 10102 <br> 11113 <br> 20100 <br> 21112 | a01rc <br> a11lb <br> b01lc <br> b11rh <br> c01la <br> c11rc |
+
+
+
 
 
 ## Folder Structure

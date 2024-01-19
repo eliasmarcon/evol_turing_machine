@@ -1,0 +1,864 @@
+Population size: 210
+Max generations: 10
+Number of states: 4
+
+Busy Beaver: 
+a01lc
+a11rc
+b01rh
+b10rd
+c00rd
+c11lc
+d01ra
+d11rd
+
+Best fitness: 13
+
+Busy Beaver tape: 
+0 | 0 | 1 | 0 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1
+
+Max steps: 107
+
+Busy Beaver for Σ and S: Yes!
+
+Time taken for evolution: 0 hours, 0 minutes, 32 seconds, and 147 milliseconds
+
+--------------------------------------------------------------------------------
+
+Population size: 210
+Max generations: 210
+Number of states: 4
+
+Busy Beaver: 
+a01lc
+a11rd
+b01la
+b10rb
+c01ld
+c10ra
+d00rc
+d11lh
+
+Best fitness: 13
+
+Busy Beaver tape: 
+1 | 0 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 0 | 0
+
+Max steps: 107
+
+Busy Beaver for Σ and S: Yes!
+
+Time taken for evolution: 0 hours, 0 minutes, 32 seconds, and 916 milliseconds
+
+--------------------------------------------------------------------------------
+
+Population size: 210
+Max generations: 410
+Number of states: 4
+
+Busy Beaver: 
+a01lc
+a11lb
+b01rd
+b11rh
+c01ld
+c10rd
+d00rd
+d10ra
+
+Best fitness: 13
+
+Busy Beaver tape: 
+0 | 0 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 1 | 1 | 0
+
+Max steps: 107
+
+Busy Beaver for Σ and S: Yes!
+
+Time taken for evolution: 0 hours, 0 minutes, 33 seconds, and 68 milliseconds
+
+--------------------------------------------------------------------------------
+
+Population size: 210
+Max generations: 610
+Number of states: 4
+
+Busy Beaver: 
+a01rd
+a10la
+b01lh
+b10la
+c00ld
+c11la
+d01rc
+d11lb
+
+Best fitness: 13
+
+Busy Beaver tape: 
+0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 1 | 1 | 0
+
+Max steps: 107
+
+Busy Beaver for Σ and S: Yes!
+
+Time taken for evolution: 0 hours, 0 minutes, 33 seconds, and 412 milliseconds
+
+--------------------------------------------------------------------------------
+
+Population size: 210
+Max generations: 810
+Number of states: 4
+
+Busy Beaver: 
+a01lc
+a10la
+b01rh
+b11lh
+c01rd
+c11lc
+d01lh
+d11ra
+
+Best fitness: 13
+
+Busy Beaver tape: 
+0 | 1 | 0 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1
+
+Max steps: 107
+
+Busy Beaver for Σ and S: Yes!
+
+Time taken for evolution: 0 hours, 0 minutes, 33 seconds, and 146 milliseconds
+
+--------------------------------------------------------------------------------
+
+Population size: 210
+Max generations: 1010
+Number of states: 4
+
+Busy Beaver: 
+a00rc
+a10rb
+b01ld
+b11rh
+c01rd
+c11ra
+d00la
+d10ra
+
+Best fitness: 13
+
+Busy Beaver tape: 
+0 | 0 | 1 | 0 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1
+
+Max steps: 107
+
+Busy Beaver for Σ and S: Yes!
+
+Time taken for evolution: 0 hours, 0 minutes, 32 seconds, and 951 milliseconds
+
+--------------------------------------------------------------------------------
+
+Population size: 210
+Max generations: 1210
+Number of states: 4
+
+Busy Beaver: 
+a01lc
+a10lb
+b01rd
+b10lb
+c01ld
+c11lh
+d00ra
+d10rb
+
+Best fitness: 13
+
+Busy Beaver tape: 
+1 | 1 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 0 | 0
+
+Max steps: 107
+
+Busy Beaver for Σ and S: Yes!
+
+Time taken for evolution: 0 hours, 0 minutes, 32 seconds, and 558 milliseconds
+
+--------------------------------------------------------------------------------
+
+Population size: 210
+Max generations: 1410
+Number of states: 4
+
+Busy Beaver: 
+a00rc
+a11lc
+b01la
+b10rb
+c01la
+c11rb
+d01lh
+d10rd
+
+Best fitness: 13
+
+Busy Beaver tape: 
+0 | 0 | 0 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0
+
+Max steps: 107
+
+Busy Beaver for Σ and S: Yes!
+
+Time taken for evolution: 0 hours, 0 minutes, 33 seconds, and 39 milliseconds
+
+--------------------------------------------------------------------------------
+
+Population size: 410
+Max generations: 10
+Number of states: 4
+
+Busy Beaver: 
+a00rd
+a11rd
+b01rd
+b10lc
+c01rb
+c11ld
+d00lb
+d10lh
+
+Best fitness: 13
+
+Busy Beaver tape: 
+1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 0 | 0 | 1
+
+Max steps: 107
+
+Busy Beaver for Σ and S: Yes!
+
+Time taken for evolution: 0 hours, 1 minutes, 3 seconds, and 355 milliseconds
+
+--------------------------------------------------------------------------------
+
+Population size: 410
+Max generations: 210
+Number of states: 4
+
+Busy Beaver: 
+a00rd
+a11rh
+b01rb
+b10ld
+c00lb
+c10la
+d01la
+d11lc
+
+Best fitness: 13
+
+Busy Beaver tape: 
+0 | 0 | 0 | 1 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 0
+
+Max steps: 107
+
+Busy Beaver for Σ and S: Yes!
+
+Time taken for evolution: 0 hours, 1 minutes, 3 seconds, and 433 milliseconds
+
+--------------------------------------------------------------------------------
+
+Population size: 410
+Max generations: 410
+Number of states: 4
+
+Busy Beaver: 
+a01lb
+a11lb
+b00rc
+b10lc
+c01rc
+c11ra
+d01rh
+d10la
+
+Best fitness: 13
+
+Busy Beaver tape: 
+1 | 0 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 0
+
+Max steps: 107
+
+Busy Beaver for Σ and S: Yes!
+
+Time taken for evolution: 0 hours, 1 minutes, 3 seconds, and 530 milliseconds
+
+--------------------------------------------------------------------------------
+
+Population size: 410
+Max generations: 610
+Number of states: 4
+
+Busy Beaver: 
+a01lb
+a10rd
+b01ra
+b10la
+c01ra
+c11lh
+d00ld
+d10lb
+
+Best fitness: 13
+
+Busy Beaver tape: 
+1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 0 | 0
+
+Max steps: 107
+
+Busy Beaver for Σ and S: Yes!
+
+Time taken for evolution: 0 hours, 1 minutes, 3 seconds, and 784 milliseconds
+
+--------------------------------------------------------------------------------
+
+Population size: 410
+Max generations: 810
+Number of states: 4
+
+Busy Beaver: 
+a01rd
+a10ra
+b00la
+b11la
+c00rh
+c11ra
+d01lb
+d11rd
+
+Best fitness: 13
+
+Busy Beaver tape: 
+0 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 1 | 0 | 0 | 0
+
+Max steps: 107
+
+Busy Beaver for Σ and S: Yes!
+
+Time taken for evolution: 0 hours, 1 minutes, 3 seconds, and 835 milliseconds
+
+--------------------------------------------------------------------------------
+
+Population size: 410
+Max generations: 1010
+Number of states: 4
+
+Busy Beaver: 
+a00rb
+a11rh
+b01ld
+b10ra
+c01rb
+c11rd
+d00rc
+d10rb
+
+Best fitness: 13
+
+Busy Beaver tape: 
+1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 0 | 1 | 1 | 0 | 1
+
+Max steps: 107
+
+Busy Beaver for Σ and S: Yes!
+
+Time taken for evolution: 0 hours, 1 minutes, 3 seconds, and 426 milliseconds
+
+--------------------------------------------------------------------------------
+
+Population size: 410
+Max generations: 1210
+Number of states: 4
+
+Busy Beaver: 
+a00rc
+a10lc
+b01ra
+b10lh
+c00ld
+c11rb
+d01la
+d11rc
+
+Best fitness: 13
+
+Busy Beaver tape: 
+1 | 0 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 0 | 1 | 1 | 1
+
+Max steps: 107
+
+Busy Beaver for Σ and S: Yes!
+
+Time taken for evolution: 0 hours, 1 minutes, 3 seconds, and 746 milliseconds
+
+--------------------------------------------------------------------------------
+
+Population size: 410
+Max generations: 1410
+Number of states: 4
+
+Busy Beaver: 
+a01rc
+a11ld
+b00la
+b10rc
+c01lc
+c11rb
+d01rb
+d10rh
+
+Best fitness: 13
+
+Busy Beaver tape: 
+1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 1 | 1 | 0
+
+Max steps: 107
+
+Busy Beaver for Σ and S: Yes!
+
+Time taken for evolution: 0 hours, 1 minutes, 3 seconds, and 372 milliseconds
+
+--------------------------------------------------------------------------------
+
+Population size: 610
+Max generations: 10
+Number of states: 4
+
+Busy Beaver: 
+a01lb
+a11lc
+b01lc
+b11rh
+c01rd
+c10la
+d00lb
+d10rd
+
+Best fitness: 13
+
+Busy Beaver tape: 
+1 | 1 | 1 | 1 | 0 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 1 | 0
+
+Max steps: 107
+
+Busy Beaver for Σ and S: Yes!
+
+Time taken for evolution: 0 hours, 1 minutes, 34 seconds, and 754 milliseconds
+
+--------------------------------------------------------------------------------
+
+Population size: 610
+Max generations: 210
+Number of states: 4
+
+Busy Beaver: 
+a01lb
+a11rh
+b00rd
+b11lb
+c01rh
+c11lh
+d01ra
+d11rd
+
+Best fitness: 13
+
+Busy Beaver tape: 
+1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1
+
+Max steps: 107
+
+Busy Beaver for Σ and S: Yes!
+
+Time taken for evolution: 0 hours, 1 minutes, 32 seconds, and 759 milliseconds
+
+--------------------------------------------------------------------------------
+
+Population size: 610
+Max generations: 410
+Number of states: 4
+
+Busy Beaver: 
+a00lc
+a10la
+b00lh
+b11lc
+c01ra
+c11rd
+d01lb
+d11ld
+
+Best fitness: 13
+
+Busy Beaver tape: 
+1 | 0 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1
+
+Max steps: 107
+
+Busy Beaver for Σ and S: Yes!
+
+Time taken for evolution: 0 hours, 1 minutes, 35 seconds, and 187 milliseconds
+
+--------------------------------------------------------------------------------
+
+Population size: 610
+Max generations: 610
+Number of states: 4
+
+Busy Beaver: 
+a01rd
+a10lc
+b01rd
+b10lc
+c01lc
+c10la
+d00rc
+d10rh
+
+Best fitness: 13
+
+Busy Beaver tape: 
+1 | 1 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0
+
+Max steps: 107
+
+Busy Beaver for Σ and S: Yes!
+
+Time taken for evolution: 0 hours, 1 minutes, 35 seconds, and 77 milliseconds
+
+--------------------------------------------------------------------------------
+
+Population size: 610
+Max generations: 810
+Number of states: 4
+
+Busy Beaver: 
+a01rc
+a10la
+b01la
+b10ld
+c00rb
+c11rb
+d01lh
+d11lb
+
+Best fitness: 13
+
+Busy Beaver tape: 
+1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1
+
+Max steps: 107
+
+Busy Beaver for Σ and S: Yes!
+
+Time taken for evolution: 0 hours, 1 minutes, 34 seconds, and 199 milliseconds
+
+--------------------------------------------------------------------------------
+
+Population size: 610
+Max generations: 1010
+Number of states: 4
+
+Busy Beaver: 
+a00lc
+a11rh
+b00rd
+b10la
+c00lb
+c10rh
+d01lb
+d11rd
+
+Best fitness: 13
+
+Busy Beaver tape: 
+1 | 0 | 0 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1
+
+Max steps: 107
+
+Busy Beaver for Σ and S: Yes!
+
+Time taken for evolution: 0 hours, 1 minutes, 34 seconds, and 465 milliseconds
+
+--------------------------------------------------------------------------------
+
+Population size: 610
+Max generations: 1210
+Number of states: 4
+
+Busy Beaver: 
+a00lb
+a10rh
+b01rc
+b11lc
+c00ld
+c10lc
+d01rb
+d11ra
+
+Best fitness: 13
+
+Busy Beaver tape: 
+1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 0 | 0
+
+Max steps: 107
+
+Busy Beaver for Σ and S: Yes!
+
+Time taken for evolution: 0 hours, 1 minutes, 34 seconds, and 521 milliseconds
+
+--------------------------------------------------------------------------------
+
+Population size: 610
+Max generations: 1410
+Number of states: 4
+
+Busy Beaver: 
+a01rd
+a10ld
+b01rc
+b11rh
+c01la
+c10rd
+d00lc
+d10rb
+
+Best fitness: 13
+
+Busy Beaver tape: 
+0 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 0
+
+Max steps: 107
+
+Busy Beaver for Σ and S: Yes!
+
+Time taken for evolution: 0 hours, 1 minutes, 34 seconds, and 716 milliseconds
+
+--------------------------------------------------------------------------------
+
+Population size: 810
+Max generations: 10
+Number of states: 4
+
+Busy Beaver: 
+a01ld
+a11lb
+b01rb
+b11rc
+c01rh
+c11ra
+d01rc
+d11la
+
+Best fitness: 13
+
+Busy Beaver tape: 
+0 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 0 | 0 | 1
+
+Max steps: 107
+
+Busy Beaver for Σ and S: Yes!
+
+Time taken for evolution: 0 hours, 2 minutes, 10 seconds, and 553 milliseconds
+
+--------------------------------------------------------------------------------
+
+Population size: 810
+Max generations: 210
+Number of states: 4
+
+Busy Beaver: 
+a00rc
+a10lh
+b01ld
+b11lc
+c00rd
+c10ra
+d00rb
+d11ra
+
+Best fitness: 13
+
+Busy Beaver tape: 
+1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 0
+
+Max steps: 107
+
+Busy Beaver for Σ and S: Yes!
+
+Time taken for evolution: 0 hours, 2 minutes, 10 seconds, and 635 milliseconds
+
+--------------------------------------------------------------------------------
+
+Population size: 810
+Max generations: 410
+Number of states: 4
+
+Busy Beaver: 
+a01ld
+a10rb
+b00ra
+b11ra
+c00rh
+c11rb
+d01lb
+d11la
+
+Best fitness: 13
+
+Busy Beaver tape: 
+1 | 0 | 1 | 1 | 1 | 1 | 0 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1
+
+Max steps: 107
+
+Busy Beaver for Σ and S: Yes!
+
+Time taken for evolution: 0 hours, 2 minutes, 8 seconds, and 608 milliseconds
+
+--------------------------------------------------------------------------------
+
+Population size: 810
+Max generations: 610
+Number of states: 4
+
+Busy Beaver: 
+a01ld
+a11ra
+b01rc
+b10rh
+c01ra
+c11la
+d01lb
+d10rc
+
+Best fitness: 13
+
+Busy Beaver tape: 
+0 | 1 | 1 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 0
+
+Max steps: 107
+
+Busy Beaver for Σ and S: Yes!
+
+Time taken for evolution: 0 hours, 2 minutes, 9 seconds, and 939 milliseconds
+
+--------------------------------------------------------------------------------
+
+Population size: 810
+Max generations: 810
+Number of states: 4
+
+Busy Beaver: 
+a00ld
+a10rb
+b00rd
+b11lh
+c01ra
+c11ld
+d00rc
+d11la
+
+Best fitness: 13
+
+Busy Beaver tape: 
+1 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 1 | 0 | 0
+
+Max steps: 107
+
+Busy Beaver for Σ and S: Yes!
+
+Time taken for evolution: 0 hours, 2 minutes, 8 seconds, and 991 milliseconds
+
+--------------------------------------------------------------------------------
+
+Population size: 810
+Max generations: 1010
+Number of states: 4
+
+Busy Beaver: 
+a01ld
+a11ld
+b01rd
+b11lh
+c01la
+c10lb
+d00rc
+d10rc
+
+Best fitness: 13
+
+Busy Beaver tape: 
+0 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 0 | 0 | 1
+
+Max steps: 107
+
+Busy Beaver for Σ and S: Yes!
+
+Time taken for evolution: 0 hours, 2 minutes, 13 seconds, and 745 milliseconds
+
+--------------------------------------------------------------------------------
+
+Population size: 810
+Max generations: 1210
+Number of states: 4
+
+Busy Beaver: 
+a01rb
+a10rh
+b01rc
+b10lc
+c01ld
+c11rc
+d00la
+d11lb
+
+Best fitness: 13
+
+Busy Beaver tape: 
+1 | 0 | 1 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 1 | 0 | 0 | 1 | 0 | 0
+
+Max steps: 107
+
+Busy Beaver for Σ and S: Yes!
+
+Time taken for evolution: 0 hours, 2 minutes, 12 seconds, and 184 milliseconds
+
+--------------------------------------------------------------------------------
+
+Population size: 810
+Max generations: 1410
+Number of states: 4
+
+Busy Beaver: 
+a01rd
+a10la
+b00rd
+b10rd
+c01la
+c11lh
+d00rc
+d11rc
+
+Best fitness: 13
+
+Busy Beaver tape: 
+1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 0
+
+Max steps: 107
+
+Busy Beaver for Σ and S: Yes!
+
+Time taken for evolution: 0 hours, 2 minutes, 9 seconds, and 607 milliseconds
+
+--------------------------------------------------------------------------------
+

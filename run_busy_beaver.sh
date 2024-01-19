@@ -17,6 +17,18 @@ if [ "$#" -eq 3 ]; then
         exit 1
     fi
 
+    # check if population size is valid
+    if [ "$population_size" -lt 10 ]; then
+        echo "The population size has to be greater than 10"
+        exit 1
+    fi
+
+    # check if number of generations is valid
+    if [ "$num_generations" -lt 10 ]; then
+        echo "The number of generations has to be greater than 10"
+        exit 1
+    fi
+
 else
     echo "Usage: ./run_busy_beaver.sh <num_states> <population_size> <num_generations>"
     exit 1
@@ -50,15 +62,15 @@ g++ -o "$output_executable" "$cpp_file" -lga -fpermissive -Ofast
 if [ $? -eq 0 ]; then
     echo "Compilation of Busy Beaver Problem was successful. Running the program..."
 
-    for num_states in {1..4}; do
+    for num_states in {3..4}; do
         
         # Loop through population size from 100 to 1000 in steps of 100
-        for population_size in {100..1500..100}; do
+        for population_size in {10..1000..200}; do
             # Clear the output file
             > "$output_file"
 
             # Loop through num_generations from 250 to 2000 in steps of 250
-            for num_generations in {250..3000..250}; do
+            for num_generations in {10..1500..200}; do
 
                 # Print the current configuration
                 echo "Running Busy Beaver Problem with $num_states states, $population_size population size and $num_generations generations..."

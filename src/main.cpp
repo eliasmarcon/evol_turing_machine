@@ -30,8 +30,7 @@ int POPULATION_SIZE = 10; //5
 int MAX_GENERATIONS = 10; //200000
 
 const int max_1s[] = {1, 4, 6, 13, 4098};
-const int max_steps_beaver_array[] = {1, 6, 21, 107, 47176870};
-const int max_steps[] = {5000, 15000, 100000, 1000000, 10000000};
+const int max_steps_possible[] = {1, 6, 21, 107, 47176870};
 const std::string busy_beaver_filename = "./busy_beaver_solutions/busy_beaver_";
 const std::string loops[] = {"00000", "00100", "00010", "00110"};
 
@@ -112,33 +111,6 @@ std::string separateWithPipe(const std::string& input) {
     return result;
 }
 
-// bool checkForHaltState(std::vector<std::string> stateTableTuringMachine){
-
-//     // check for at least one halt state
-//     for (int i = 0; i < stateTableTuringMachine.size(); ++i) {
-//         if (stateTableTuringMachine[i][4] == 'h') {
-//             return true;
-//         }
-//     }
-
-//     return false;
-// }
-
-// // replace random pair
-// std::vector<std::string> replaceRandomPair(std::vector<std::string> stateTableTuringMachine){
-
-//     std::random_device rd;
-//     std::mt19937 gen(rd());
-
-//     // Generate a random index
-//     std::uniform_int_distribution<> dist(0, stateTableTuringMachine.size() - 1);
-
-//     // Replace the last value with a halt state
-//     stateTableTuringMachine[dist(gen)][4] = NUM_STATES + '0';
-
-//     return stateTableTuringMachine;
-// }
-
 std::vector<std::string> convertGenomeToVector(GA2DArrayGenome<int> &genome){
 
     std::vector<std::string> stateTableTuringMachine;
@@ -194,7 +166,6 @@ class TuringMachine {
 
     private:
 
-        // std::string tape = "0000000000000000000000000000000";
         std::string tape = "00000";
 
         int head = tape.size() / 2;
@@ -233,7 +204,7 @@ class TuringMachine {
             // std::cout << "original head: " << head << std::endl;
             // std::cout << "original tape: " << tape << std::endl;
 
-            while (current_state != 'h' && steps < max_steps[NUM_STATES - 1] && !checkFirstState()){
+            while (current_state != 'h' && steps < max_steps_possible[NUM_STATES - 1] && !checkFirstState()){
 
                 // read value from tape
                 char tape_value = tape[head];
@@ -268,13 +239,6 @@ class TuringMachine {
                         // update steps
                         steps++;
 
-                        // if (steps % 1000 == 0){
-                        //     std::cout << "steps: " << steps << std::endl;
-                        //     // std::cout << "head: " << head << std::endl;
-                        //     // std::cout << "tape: " << tape << std::endl;
-                        //     // std::cout << std::endl;
-                        // }
-
                         break;
                     }
                 }
@@ -286,10 +250,6 @@ class TuringMachine {
                     ++counter_ones;
                 }
             }
-
-            // // print head and tape
-            // std::cout << "final head: " << head << std::endl;
-            // std::cout << "final tape: " << tape << std::endl;
 
             return std::make_tuple(counter_ones, tape, steps);
         }
@@ -402,19 +362,16 @@ float objective(GAGenome& g) {
     // get the number of ones
     fitness = std::get<0>(result);
 
-    if (fitness == max_1s[NUM_STATES - 1]) { 
+    if (fitness == max_1s[NUM_STATES - 1] && std::get<2>(result) <= max_steps_possible[NUM_STATES - 1]) { 
         // get the tape
         busy_beaver_tape = std::get<1>(result);
 
         // get the steps
         max_steps_beaver = std::get<2>(result);
 
-    } else if (fitness > max_1s[NUM_STATES - 1] || std::get<2>(result) > max_steps_beaver_array[NUM_STATES - 1]) {
+    } else {  
         fitness = 0;
     }
-
-    // Print the fitness
-    // std::cout << "Fitness: " << fitness << std::endl;
 
     return (float)fitness;
 }
@@ -462,16 +419,6 @@ void initializer(GAGenome& g) {
     if (!hasH){
         genome = replaceRandomPair(genome);
     }
-
-	// // Print the genome
-	// std::cout << "Initialized genome: " << std::endl;
-	// for (int i = 0; i < genome.width(); ++i) {
-    //     for (int j = 0; j < genome.height(); ++j) {
-    //         std::cout << genome.gene(i, j);
-    //     }
-    //     std::cout << std::endl;
-    // }
-    // std::cout << std::endl;
 }
 
 
@@ -675,10 +622,10 @@ int main(int argc, char* argv[]) {
     // Print elapsed time
     printElapsedTime(start_time, end_time);
 
-    if (bestFitness >= max_1s[NUM_STATES - 1] && max_steps_beaver == max_steps_beaver_array[NUM_STATES - 1]) {
+    if (bestFitness >= max_1s[NUM_STATES - 1] && max_steps_beaver == max_steps_possible[NUM_STATES - 1]) {
         std::cout << "Busy Beaver found for Σ and S! ";
         saveBusyBeaver(POPULATION_SIZE, MAX_GENERATIONS, bestVector, bestFitness, NUM_STATES, start_time, end_time, true);
-    } else if (bestFitness >= max_1s[NUM_STATES - 1]) {
+    } else if (bestFitness >= max_1s[NUM_STATES - 1] && max_steps_beaver < max_steps_possible[NUM_STATES - 1]) {
         std::cout << "Busy Beaver found for Σ! ";
         saveBusyBeaver(POPULATION_SIZE, MAX_GENERATIONS, bestVector, bestFitness, NUM_STATES, start_time, end_time, false); 
     } else {
