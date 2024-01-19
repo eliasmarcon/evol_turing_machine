@@ -1,9 +1,64 @@
 Starting evolution...
 
 Best individual:
-a01rh
+a01lb
+a10rc
+b01rc
+b11lb
+c01rh
+c11rd
+d01ra
+d11ra
 
-Best fitness: 1
-Time taken for evolution: 0 hours, 0 minutes, 0 seconds, and 347 milliseconds
+Best fitness: 7
+Time taken for evolution: 0 hours, 6 minutes, 9 seconds, and 323 milliseconds
 
-Busy Beaver found! Values are saved into./busy_beaver_solutions/busy_beaver_1_states.txt
+No Busy Beaver found!
+Starting evolution...
+
+Best individual:
+a01lb
+a11rd
+b01ra
+b11rc
+c01rh
+c11rc
+d01rb
+d11rd
+
+Best fitness: 6
+Time taken for evolution: 0 hours, 6 minutes, 18 seconds, and 856 milliseconds
+
+No Busy Beaver found!
+Starting evolution...
+
+Best individual:
+a01lc
+a11rd
+b01ra
+b11lb
+c01lb
+c11lh
+d01ra
+d10ra
+
+Best fitness: 7
+Time taken for evolution: 0 hours, 6 minutes, 42 seconds, and 959 milliseconds
+
+No Busy Beaver found!
+Starting evolution...
+
+Best individual:
+a01lc
+a10rc
+b01lh
+b11lb
+c01ld
+c11rb
+d01rd
+d11ra
+
+Best fitness: 6
+Time taken for evolution: 0 hours, 7 minutes, 15 seconds, and 671 milliseconds
+
+No Busy Beaver found!

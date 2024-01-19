@@ -26,15 +26,17 @@
 using namespace std;
 
 int NUM_STATES = 2;
-int POPULATION_SIZE = 2; //5
-int MAX_GENERATIONS = 1; //200000
+int POPULATION_SIZE = 10; //5
+int MAX_GENERATIONS = 10; //200000
 
 const int max_1s[] = {1, 4, 6, 13, 4098};
-const int max_steps[] = {500, 1500, 5000, 15000, 1000000};
+const int max_steps_beaver_array[] = {1, 6, 21, 107, 47176870};
+const int max_steps[] = {5000, 15000, 100000, 1000000, 10000000};
 const std::string busy_beaver_filename = "./busy_beaver_solutions/busy_beaver_";
+const std::string loops[] = {"00000", "00100", "00010", "00110"};
 
-std::string const loops[] = {"00000", "00100", "00010", "00110"};
-
+std::string busy_beaver_tape = "";
+int max_steps_beaver = 0;
 
 /*===========================================================================================*/
 /*===================================== Helper Functions ====================================*/
@@ -93,6 +95,21 @@ GA2DArrayGenome<int> replaceRandomPair(GA2DArrayGenome<int> &genome){
     genome.gene(dist(gen), 4, NUM_STATES);
 
     return genome;
+}
+
+std::string separateWithPipe(const std::string& input) {
+    std::string result;
+
+    for (size_t i = 0; i < input.length(); ++i) {
+        result += input[i];
+        
+        // Add " | " after each character, except for the last one
+        if (i < input.length() - 1) {
+            result += " | ";
+        }
+    }
+
+    return result;
 }
 
 // bool checkForHaltState(std::vector<std::string> stateTableTuringMachine){
@@ -177,7 +194,8 @@ class TuringMachine {
 
     private:
 
-        std::string tape = "0000000000000000000000000000000";
+        // std::string tape = "0000000000000000000000000000000";
+        std::string tape = "00000";
 
         int head = tape.size() / 2;
         int counter_ones = 0;
@@ -210,7 +228,7 @@ class TuringMachine {
             return false;
         }
 
-        int run(){
+        std::tuple<int, std::string, int> run(){
 
             // std::cout << "original head: " << head << std::endl;
             // std::cout << "original tape: " << tape << std::endl;
@@ -265,7 +283,7 @@ class TuringMachine {
             // count number of ones
             for (int i = 0; i < tape.size(); ++i) {
                 if (tape[i] == '1') {
-                    counter_ones++;
+                    ++counter_ones;
                 }
             }
 
@@ -273,7 +291,7 @@ class TuringMachine {
             // std::cout << "final head: " << head << std::endl;
             // std::cout << "final tape: " << tape << std::endl;
 
-            return counter_ones;
+            return std::make_tuple(counter_ones, tape, steps);
         }
 };
 
@@ -301,7 +319,8 @@ bool checkIfBeaverExists(std::vector<std::string> bestVector, int& existingPopul
 
 void saveBusyBeaver(int POPULATION_SIZE, int MAX_GENERATIONS, std::vector<std::string> bestVector, int bestFitness, int NUM_STATES, 
                     const std::chrono::time_point<std::chrono::system_clock>& start_time,
-                    const std::chrono::time_point<std::chrono::system_clock>& end_time) {
+                    const std::chrono::time_point<std::chrono::system_clock>& end_time,
+                    bool busy_beaver_both) {
 
     int existingPopulationSize = 0;
     int existingMaxGenerations = 0;
@@ -329,6 +348,13 @@ void saveBusyBeaver(int POPULATION_SIZE, int MAX_GENERATIONS, std::vector<std::s
         }
 
         myfile << "\nBest fitness: " << bestFitness << std::endl;
+
+        myfile << "\nBusy Beaver tape: " << std::endl;
+        myfile << separateWithPipe(busy_beaver_tape) << std::endl;
+
+        myfile << "\nMax steps: " << max_steps_beaver << std::endl;
+
+        myfile << "\nBusy Beaver for Σ and S: " << (busy_beaver_both ? "Yes!" : "No just for Σ!") << std::endl;
 
         auto duration = std::chrono::duration_cast<std::chrono::milliseconds>(end_time - start_time);
 
@@ -371,9 +397,19 @@ float objective(GAGenome& g) {
     TuringMachine turingMachine(stateTableTuringMachine);
 
     // run the Turing Machine
-    fitness = turingMachine.run();
+    std::tuple<int, std::string, int> result = turingMachine.run();
 
-    if (fitness > max_1s[NUM_STATES - 1]) {
+    // get the number of ones
+    fitness = std::get<0>(result);
+
+    if (fitness == max_1s[NUM_STATES - 1]) { 
+        // get the tape
+        busy_beaver_tape = std::get<1>(result);
+
+        // get the steps
+        max_steps_beaver = std::get<2>(result);
+
+    } else if (fitness > max_1s[NUM_STATES - 1] || std::get<2>(result) > max_steps_beaver_array[NUM_STATES - 1]) {
         fitness = 0;
     }
 
@@ -416,7 +452,6 @@ void initializer(GAGenome& g) {
 	// Set the genome with the generated genes
     for (int i = 0; i < genome.width(); ++i) {
         for (int j = 0; j < genome.height(); ++j) {
-            // cast char to int
             genome.gene(i, j, stateTableTuringMachine[i][j] - '0');
         }
     }
@@ -595,13 +630,15 @@ int main(int argc, char* argv[]) {
         POPULATION_SIZE = atoi(argv[2]);
         MAX_GENERATIONS = atoi(argv[3]);
     } else {
+
+        std::cout << "Usage: " << argv[0] << " <number of states> <population size> <max generations>" << std::endl;
         exit(0);
     }	
 
     // Start measuring time
     auto start_time = std::chrono::high_resolution_clock::now();
 
-    GA2DArrayGenome<int> genome(std::pow(NUM_STATES, 2), 5, objective);
+    GA2DArrayGenome<int> genome(NUM_STATES * 2, 5, objective);
 
     genome.initializer(initializer);
     genome.mutator(mutator);
@@ -638,9 +675,12 @@ int main(int argc, char* argv[]) {
     // Print elapsed time
     printElapsedTime(start_time, end_time);
 
-    if (bestFitness == max_1s[NUM_STATES - 1]) {
-        std::cout << "Busy Beaver found! ";
-        saveBusyBeaver(POPULATION_SIZE, MAX_GENERATIONS, bestVector, bestFitness, NUM_STATES, start_time, end_time);
+    if (bestFitness >= max_1s[NUM_STATES - 1] && max_steps_beaver == max_steps_beaver_array[NUM_STATES - 1]) {
+        std::cout << "Busy Beaver found for Σ and S! ";
+        saveBusyBeaver(POPULATION_SIZE, MAX_GENERATIONS, bestVector, bestFitness, NUM_STATES, start_time, end_time, true);
+    } else if (bestFitness >= max_1s[NUM_STATES - 1]) {
+        std::cout << "Busy Beaver found for Σ! ";
+        saveBusyBeaver(POPULATION_SIZE, MAX_GENERATIONS, bestVector, bestFitness, NUM_STATES, start_time, end_time, false); 
     } else {
         std::cout << "No Busy Beaver found!" << std::endl;
     }

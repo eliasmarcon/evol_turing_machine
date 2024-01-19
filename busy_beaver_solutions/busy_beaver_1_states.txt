@@ -1,26 +1,336 @@
-Population size: 10
-Max generations: 10
+Population size: 100
+Max generations: 250
 Number of states: 1
 
 Busy Beaver: 
 a01lh
+a11rh
 
 Best fitness: 1
 
-Time taken for evolution: 0 hours, 0 minutes, 0 seconds, and 910 milliseconds
+Busy Beaver tape: 
+0 | 0 | 1 | 0
+
+Max steps: 1
+
+Busy Beaver for Σ and S: Yes!
+
+Time taken for evolution: 0 hours, 0 minutes, 4 seconds, and 547 milliseconds
 
 --------------------------------------------------------------------------------
 
-Population size: 10
-Max generations: 10
+Population size: 100
+Max generations: 500
+Number of states: 1
+
+Busy Beaver: 
+a01lh
+a11la
+
+Best fitness: 1
+
+Busy Beaver tape: 
+0 | 0 | 1 | 0
+
+Max steps: 1
+
+Busy Beaver for Σ and S: Yes!
+
+Time taken for evolution: 0 hours, 0 minutes, 9 seconds, and 691 milliseconds
+
+--------------------------------------------------------------------------------
+
+Population size: 100
+Max generations: 750
 Number of states: 1
 
 Busy Beaver: 
 a01rh
+a10rh
 
 Best fitness: 1
 
-Time taken for evolution: 0 hours, 0 minutes, 0 seconds, and 347 milliseconds
+Busy Beaver tape: 
+0 | 0 | 1 | 0
+
+Max steps: 1
+
+Busy Beaver for Σ and S: Yes!
+
+Time taken for evolution: 0 hours, 0 minutes, 4 seconds, and 681 milliseconds
+
+--------------------------------------------------------------------------------
+
+Population size: 100
+Max generations: 1000
+Number of states: 1
+
+Busy Beaver: 
+a01rh
+a11rh
+
+Best fitness: 1
+
+Busy Beaver tape: 
+0 | 0 | 1 | 0
+
+Max steps: 1
+
+Busy Beaver for Σ and S: Yes!
+
+Time taken for evolution: 0 hours, 0 minutes, 4 seconds, and 352 milliseconds
+
+--------------------------------------------------------------------------------
+
+Population size: 100
+Max generations: 1250
+Number of states: 1
+
+Busy Beaver: 
+a01lh
+a10la
+
+Best fitness: 1
+
+Busy Beaver tape: 
+0 | 0 | 1 | 0
+
+Max steps: 1
+
+Busy Beaver for Σ and S: Yes!
+
+Time taken for evolution: 0 hours, 0 minutes, 4 seconds, and 342 milliseconds
+
+--------------------------------------------------------------------------------
+
+Population size: 100
+Max generations: 1500
+Number of states: 1
+
+Busy Beaver: 
+a01lh
+a11ra
+
+Best fitness: 1
+
+Busy Beaver tape: 
+0 | 0 | 1 | 0
+
+Max steps: 1
+
+Busy Beaver for Σ and S: Yes!
+
+Time taken for evolution: 0 hours, 0 minutes, 4 seconds, and 451 milliseconds
+
+--------------------------------------------------------------------------------
+
+Population size: 100
+Max generations: 1750
+Number of states: 1
+
+Busy Beaver: 
+a01lh
+a10ra
+
+Best fitness: 1
+
+Busy Beaver tape: 
+0 | 0 | 1 | 0
+
+Max steps: 1
+
+Busy Beaver for Σ and S: Yes!
+
+Time taken for evolution: 0 hours, 0 minutes, 4 seconds, and 434 milliseconds
+
+--------------------------------------------------------------------------------
+
+Population size: 100
+Max generations: 2250
+Number of states: 1
+
+Busy Beaver: 
+a01lh
+a10rh
+
+Best fitness: 1
+
+Busy Beaver tape: 
+0 | 0 | 1 | 0
+
+Max steps: 1
+
+Busy Beaver for Σ and S: Yes!
+
+Time taken for evolution: 0 hours, 0 minutes, 4 seconds, and 331 milliseconds
+
+--------------------------------------------------------------------------------
+
+Population size: 100
+Max generations: 2500
+Number of states: 1
+
+Busy Beaver: 
+a01rh
+a11lh
+
+Best fitness: 1
+
+Busy Beaver tape: 
+0 | 0 | 1 | 0
+
+Max steps: 1
+
+Busy Beaver for Σ and S: Yes!
+
+Time taken for evolution: 0 hours, 0 minutes, 4 seconds, and 482 milliseconds
+
+--------------------------------------------------------------------------------
+
+Population size: 200
+Max generations: 1250
+Number of states: 1
+
+Busy Beaver: 
+a01rh
+a11la
+
+Best fitness: 1
+
+Busy Beaver tape: 
+0 | 0 | 1 | 0
+
+Max steps: 1
+
+Busy Beaver for Σ and S: Yes!
+
+Time taken for evolution: 0 hours, 0 minutes, 8 seconds, and 608 milliseconds
+
+--------------------------------------------------------------------------------
+
+Population size: 200
+Max generations: 2500
+Number of states: 1
+
+Busy Beaver: 
+a01lh
+a10lh
+
+Best fitness: 1
+
+Busy Beaver tape: 
+0 | 0 | 1 | 0
+
+Max steps: 1
+
+Busy Beaver for Σ and S: Yes!
+
+Time taken for evolution: 0 hours, 0 minutes, 8 seconds, and 840 milliseconds
+
+--------------------------------------------------------------------------------
+
+Population size: 200
+Max generations: 2750
+Number of states: 1
+
+Busy Beaver: 
+a01lh
+a11lh
+
+Best fitness: 1
+
+Busy Beaver tape: 
+0 | 0 | 1 | 0
+
+Max steps: 1
+
+Busy Beaver for Σ and S: Yes!
+
+Time taken for evolution: 0 hours, 0 minutes, 8 seconds, and 664 milliseconds
+
+--------------------------------------------------------------------------------
+
+Population size: 300
+Max generations: 500
+Number of states: 1
+
+Busy Beaver: 
+a01rh
+a11ra
+
+Best fitness: 1
+
+Busy Beaver tape: 
+0 | 0 | 1 | 0
+
+Max steps: 1
+
+Busy Beaver for Σ and S: Yes!
+
+Time taken for evolution: 0 hours, 0 minutes, 13 seconds, and 418 milliseconds
+
+--------------------------------------------------------------------------------
+
+Population size: 300
+Max generations: 1750
+Number of states: 1
+
+Busy Beaver: 
+a01rh
+a10la
+
+Best fitness: 1
+
+Busy Beaver tape: 
+0 | 0 | 1 | 0
+
+Max steps: 1
+
+Busy Beaver for Σ and S: Yes!
+
+Time taken for evolution: 0 hours, 0 minutes, 13 seconds, and 665 milliseconds
+
+--------------------------------------------------------------------------------
+
+Population size: 300
+Max generations: 2750
+Number of states: 1
+
+Busy Beaver: 
+a01rh
+a10ra
+
+Best fitness: 1
+
+Busy Beaver tape: 
+0 | 0 | 1 | 0
+
+Max steps: 1
+
+Busy Beaver for Σ and S: Yes!
+
+Time taken for evolution: 0 hours, 0 minutes, 13 seconds, and 313 milliseconds
+
+--------------------------------------------------------------------------------
+
+Population size: 400
+Max generations: 1250
+Number of states: 1
+
+Busy Beaver: 
+a01rh
+a10lh
+
+Best fitness: 1
+
+Busy Beaver tape: 
+0 | 0 | 1 | 0
+
+Max steps: 1
+
+Busy Beaver for Σ and S: Yes!
+
+Time taken for evolution: 0 hours, 0 minutes, 17 seconds, and 579 milliseconds
 
 --------------------------------------------------------------------------------
 
