@@ -61,7 +61,7 @@ Also important to know is how the states are made, for example in a 2-symbol and
       
       - **Results and Saving:** Prints the best-evolved individual and its state table. Saves results, including state table and tape configuration, to a file if it achieves the maximum number of ones and steps for the Busy Beaver problem. 
 
-- `busy_beaver_output.txt`: shows the current run for a busy beaver and saves the found busy beaver (if it does not already exist) to the corresponding file of the `./busy_beaver_solutions` folder.
+- `busy_beaver_output.txt`: shows the last run for a busy beaver and saves the found busy beaver (if it does not already exist) to the corresponding file of the `./busy_beaver_solutions` folder.
 
 - `run_busy_beaver.sh`: the bash script compiles and runs a C++ program for the Busy Beaver Genetic Algorithm, taking three command-line arguments: number of states, population size, and number of generations, with error checking and result output to a file.
 

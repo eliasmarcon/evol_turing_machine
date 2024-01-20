@@ -1,96 +1,12 @@
 Starting evolution...
 
 Best individual:
-a01rc
-a10lb
-b01ra
-b11la
-c01lc
-c11ra
-d00rb
-d10lh
-
-Best fitness: 13
-Time taken for evolution: 0 hours, 1 minutes, 13 seconds, and 800 milliseconds
-
-Busy Beaver found for Σ and S! Values are saved into./busy_beaver_solutions/busy_beaver_4_states.txt
-Starting evolution...
-
-Best individual:
-a00lc
-a10lh
-b00lb
-b10rc
-c01ld
-c10rb
-d01rd
-d11rc
-
-Best fitness: 13
-Time taken for evolution: 0 hours, 1 minutes, 14 seconds, and 393 milliseconds
-
-Busy Beaver found for Σ and S! Values are saved into./busy_beaver_solutions/busy_beaver_4_states.txt
-Starting evolution...
-
-Best individual:
-a01rc
-a10lb
-b01lb
-b11la
-c01lc
-c11ra
-d00rd
-d10lh
-
-Best fitness: 13
-Time taken for evolution: 0 hours, 1 minutes, 18 seconds, and 989 milliseconds
-
-Busy Beaver found for Σ and S! Values are saved into./busy_beaver_solutions/busy_beaver_4_states.txt
-Starting evolution...
-
-Best individual:
-a00rd
-a11ld
-b00lc
-b11rd
-c00lh
-c11ld
-d01rb
-d10ld
-
-Best fitness: 13
-Time taken for evolution: 0 hours, 1 minutes, 14 seconds, and 924 milliseconds
-
-Busy Beaver found for Σ and S! Values are saved into./busy_beaver_solutions/busy_beaver_4_states.txt
-Starting evolution...
-
-Best individual:
 a01rb
-a10la
-b00rc
-b10lh
-c01lc
-c10la
-d01lh
-d10lc
+a11rh
+b01lb
+b10lb
 
-Best fitness: 13
-Time taken for evolution: 0 hours, 1 minutes, 14 seconds, and 351 milliseconds
+Best fitness: 4
+Time taken for evolution: 0 hours, 0 minutes, 1 seconds, and 507 milliseconds
 
-Busy Beaver found for Σ and S! Values are saved into./busy_beaver_solutions/busy_beaver_4_states.txt
-Starting evolution...
-
-Best individual:
-a01lc
-a10rb
-b00rd
-b10lh
-c00rc
-c11lb
-d01lb
-d11ra
-
-Best fitness: 13
-Time taken for evolution: 0 hours, 1 minutes, 15 seconds, and 876 milliseconds
-
-Busy Beaver found for Σ and S! Values are saved into./busy_beaver_solutions/busy_beaver_4_states.txt
+Busy Beaver found for Σ and S! But Busy Beaver already exists!
