@@ -37,6 +37,11 @@ const std::string loops[] = {"00000", "00100", "00010", "00110"};
 std::string busy_beaver_tape = "";
 int max_steps_beaver = 0;
 
+// vector to save found busy beaver
+std::vector<std::vector<std::string>> busy_beaver_array_found;
+std::vector<int> busy_beaver_array_step_size;
+std::vector<std::string> busy_beaver_array_tape;
+
 /*===========================================================================================*/
 /*===================================== Helper Functions ====================================*/
 /*===========================================================================================*/
@@ -369,6 +374,13 @@ float objective(GAGenome& g) {
         // get the steps
         max_steps_beaver = std::get<2>(result);
 
+        // save busy beaver into vector
+        busy_beaver_array_found.push_back(stateTableTuringMachine);
+        // save step size
+        busy_beaver_array_step_size.push_back(max_steps_beaver);
+        // save tape
+        busy_beaver_array_tape.push_back(busy_beaver_tape);
+
     } else {  
         fitness = 0;
     }
@@ -420,7 +432,6 @@ void initializer(GAGenome& g) {
         genome = replaceRandomPair(genome);
     }
 }
-
 
 
 // Mutator
@@ -517,53 +528,6 @@ int crossover(const GAGenome& p1, const GAGenome& p2, GAGenome* c1, GAGenome* c2
 
 
 /*===========================================================================================*/
-/*===================================== Selector Class ======================================*/
-/*===========================================================================================*/
-
-class BestSelector : public GASelectionScheme {
-    public:
-        GADefineIdentity("BestSelector", 0);
-
-        BestSelector() : GASelectionScheme() {}
-        virtual ~BestSelector() {}
-
-        virtual GASelectionScheme* clone() const {
-            return new BestSelector;
-        }
-
-        virtual void assign(GAPopulation& p) {
-            GASelectionScheme::assign(p);
-        }
-
-        virtual void update() {
-            GASelectionScheme::update();
-        }
-
-        virtual GAGenome& select() const {
-            const int numCandidates = POPULATION_SIZE * 0.5;  
-            const int numSelected = POPULATION_SIZE * 0.3;    
-
-            int idx[numCandidates];
-            GAGenome* candidates[numCandidates];
-
-            for (int i = 0; i < numCandidates; ++i) {
-                idx[i] = GARandomInt(0, pop->size() - 1);
-                candidates[i] = &(pop->individual(idx[i]));
-            }
-
-            // Sort candidates based on their scores in descending order
-            std::sort(candidates, candidates + numCandidates,
-                    [](const GAGenome* a, const GAGenome* b) {
-                        return a->score() > b->score();
-                    });
-
-            // Return a reference to the 10th best individual
-            return *candidates[numSelected - 1];
-        }
-};
-
-
-/*===========================================================================================*/
 /*====================================== Main Function ======================================*/
 /*===========================================================================================*/
 
@@ -595,11 +559,6 @@ int main(int argc, char* argv[]) {
     ga.populationSize(POPULATION_SIZE);
     ga.pMutation(0.1);
     ga.pCrossover(0.9);
-    // ga.minimaxi(GAGeneticAlgorithm::MAXIMIZE);
-    // ga.set(gaNnGenerations, MAX_GENERATIONS);
-
-    // BestSelector selector;
-    // ga.selector(selector);
 
     // Evolve and output information for each generation
     std::cout << "Starting evolution...\n";
@@ -622,15 +581,70 @@ int main(int argc, char* argv[]) {
     // Print elapsed time
     printElapsedTime(start_time, end_time);
 
-    if (bestFitness >= max_1s[NUM_STATES - 1] && max_steps_beaver == max_steps_possible[NUM_STATES - 1]) {
+    if (bestFitness == max_1s[NUM_STATES - 1] && max_steps_beaver == max_steps_possible[NUM_STATES - 1]) {
         std::cout << "Busy Beaver found for Σ and S! ";
         saveBusyBeaver(POPULATION_SIZE, MAX_GENERATIONS, bestVector, bestFitness, NUM_STATES, start_time, end_time, true);
-    } else if (bestFitness >= max_1s[NUM_STATES - 1] && max_steps_beaver < max_steps_possible[NUM_STATES - 1]) {
+    } else if (bestFitness == max_1s[NUM_STATES - 1]) {
         std::cout << "Busy Beaver found for Σ! ";
         saveBusyBeaver(POPULATION_SIZE, MAX_GENERATIONS, bestVector, bestFitness, NUM_STATES, start_time, end_time, false); 
     } else {
         std::cout << "No Busy Beaver found!" << std::endl;
     }
+
+
+
+    // drop duplicates
+    std::sort(busy_beaver_array_found.begin(), busy_beaver_array_found.end());
+    busy_beaver_array_found.erase(std::unique(busy_beaver_array_found.begin(), busy_beaver_array_found.end()), busy_beaver_array_found.end());
+    
+    // save all busy beavers into separate file
+    std::ofstream myfile;
+    std::string filename = "./test_busy_beaver_" + std::to_string(NUM_STATES) + "_states_all.txt";
+
+    myfile.open(filename, std::ios_base::app);
+
+    int counter = 0;
+    for (const auto& str : busy_beaver_array_found) {
+
+        if (busy_beaver_array_step_size[counter] < max_steps_possible[NUM_STATES - 1]) {
+
+            myfile << "Population size: " << POPULATION_SIZE << std::endl;
+            myfile << "Max generations: " << MAX_GENERATIONS << std::endl;
+            myfile << "Number of states: " << NUM_STATES << std::endl << std::endl;
+            myfile << "Busy Beaver: " << std::endl;
+
+            for (const auto& str2 : str) {
+                myfile << str2 << std::endl;
+            }
+
+            myfile << "\nBest fitness: " << 13 << std::endl;
+
+            // get the tape
+            myfile << "\nBusy Beaver tape: " << std::endl;
+            myfile << separateWithPipe(busy_beaver_array_tape[counter]) << std::endl << std::endl;
+
+            //save step size
+            myfile << "Max steps: " << busy_beaver_array_step_size[counter++] << std::endl << std::endl;       
+
+            myfile << "Busy Beaver for Σ and S: No just for Σ!" << std::endl;
+
+        }
+    }
+
+    // // print the found busy beaver
+    // std::vector<std::string> otherVector2 = {"a01lb", "a11lc", "b01rc", "b11lh", "c01la", "c10rb"};
+    // std::vector<std::string> otherVector3 = {"a01rb", "a11lc", "b01la", "b11rb", "c01lb", "c11rh"};
+    // std::vector<std::string> otherVector4 = {"a01rb", "a11lh", "b00rc", "b11rb", "c01lc", "c11la"};
+    // std::vector<std::string> otherVector5 = {"a00rb", "a10la", "b01rc", "b11rh", "c01la", "c11rb"};
+    
+    // std::cout << "\nBusy Beaver Arrray:" << std::endl;
+    // for (const auto& initialVector : busy_beaver_array_found) {
+
+    //     if (initialVector == otherVector2 || initialVector == otherVector3 || initialVector == otherVector4 || initialVector == otherVector5) {
+    //         std::cout << "Initial genome is equal to other vector!" << std::endl;
+    //         printVector(initialVector);
+    //     }
+    // }
 
     return 0;
 }

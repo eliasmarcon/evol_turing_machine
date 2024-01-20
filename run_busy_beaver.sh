@@ -62,15 +62,15 @@ g++ -o "$output_executable" "$cpp_file" -lga -fpermissive -Ofast
 if [ $? -eq 0 ]; then
     echo "Compilation of Busy Beaver Problem was successful. Running the program..."
 
-    for num_states in {3..4}; do
+    for num_states in {4..4}; do
         
         # Loop through population size from 100 to 1000 in steps of 100
-        for population_size in {10..1000..200}; do
+        for population_size in {10..1000..50}; do
             # Clear the output file
             > "$output_file"
 
             # Loop through num_generations from 250 to 2000 in steps of 250
-            for num_generations in {10..1500..200}; do
+            for num_generations in {10..1500..50}; do
 
                 # Print the current configuration
                 echo "Running Busy Beaver Problem with $num_states states, $population_size population size and $num_generations generations..."
