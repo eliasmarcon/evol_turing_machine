@@ -1,12 +1,16 @@
 Starting evolution...
 
 Best individual:
-a01rb
-a11rh
-b01lb
-b10lb
+a01ld
+a10lb
+b01rd
+b10ra
+c00ld
+c10rh
+d01rd
+d11la
 
-Best fitness: 4
-Time taken for evolution: 0 hours, 0 minutes, 1 seconds, and 507 milliseconds
+Best fitness: 13
+Time taken for evolution: 0 hours, 0 minutes, 2 seconds, and 978 milliseconds
 
-Busy Beaver found for Σ and S! But Busy Beaver already exists!
+Busy Beaver found for Σ and S! Values are saved into./busy_beaver_solutions/busy_beaver_4_states.txt

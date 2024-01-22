@@ -11,8 +11,8 @@ if [ "$#" -eq 3 ]; then
     # set number of generations
     num_generations=$3
 
-    # check if number of states is valid (between 1 and 4)
-    if [ "$num_states" -lt 1 ] || [ "$num_states" -gt 4 ]; then
+    # check if number of states is valid (between 1 and 5)
+    if [ "$num_states" -lt 1 ] || [ "$num_states" -gt 5 ]; then
         echo "The number of states has to be between 1 and 4"
         exit 1
     fi
