@@ -294,3 +294,30 @@ Time taken for evolution: 0 hours, 0 minutes, 2 seconds, and 978 milliseconds
 
 --------------------------------------------------------------------------------
 
+Population size: 100
+Max generations: 20
+Number of states: 4
+
+Busy Beaver: 
+a00ld
+a10la
+b01lc
+b11lh
+c01rd
+c11ld
+d01ra
+d11rb
+
+Best fitness: 13
+
+Busy Beaver tape: 
+1 | 0 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 1 | 0 | 0
+
+Max steps: 107
+
+Busy Beaver for Σ and S: Yes!
+
+Time taken for evolution: 0 hours, 0 minutes, 24 seconds, and 921 milliseconds
+
+--------------------------------------------------------------------------------
+

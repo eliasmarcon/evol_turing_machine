@@ -222,3 +222,28 @@ Busy Beaver for Σ and S: Yes!
 Time taken for evolution: 0 hours, 0 minutes, 25 seconds, and 358 milliseconds
 
 --------------------------------------------------------------------------------
+Population size: 75
+Max generations: 10
+Number of states: 3
+
+Busy Beaver: 
+a01lc
+a10lb
+b01ra
+b11la
+c01ra
+c11rh
+
+Best fitness: 6
+
+Busy Beaver tape: 
+0 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 1 | 0 | 0
+
+Max steps: 21
+
+Busy Beaver for Σ and S: Yes!
+
+Time taken for evolution: 0 hours, 0 minutes, 24 seconds, and 341 milliseconds
+
+--------------------------------------------------------------------------------
+

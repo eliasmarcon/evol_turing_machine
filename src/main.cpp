@@ -485,6 +485,20 @@ int crossover(const GAGenome& p1, const GAGenome& p2, GAGenome* c1, GAGenome* c2
             }
         }
 
+        // check halt state for child 1
+        bool hasH1 = checkForHaltState(child1);
+
+        if (!hasH1){
+            child1 = replaceRandomPair(child1);
+        }
+
+        // check halt state for child 2
+        bool hasH2 = checkForHaltState(child2);
+
+        if (!hasH2){
+            child2 = replaceRandomPair(child2);
+        }
+
         return 2;
     } else if (c1) {
         GA2DArrayGenome<int>& child = (GA2DArrayGenome<int>&)*c1;
@@ -503,6 +517,13 @@ int crossover(const GAGenome& p1, const GAGenome& p2, GAGenome* c1, GAGenome* c2
                     child.gene(i, j, parent2.gene(i, j));
                 }
             }
+        }
+
+        // check halt state for child
+        bool hasH = checkForHaltState(child);
+
+        if (!hasH){
+            child = replaceRandomPair(child);
         }
 
         return 1;
