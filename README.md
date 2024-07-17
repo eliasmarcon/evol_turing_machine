@@ -95,8 +95,3 @@ or you run the included bash script which compiles and runs the program automati
 
 ## Usage
 The easiest way to run the busy beaver problem is to run the `run_busy_beaver.sh` script with the corresponding arguments. The results of the run will be saved in the `busy_beaver_output.txt` file and if a new busy beaver is found (a busy beaver which is not already in the corresponding file) the run will also be saved in the corresponding file in the `./busy_beaver_solutions` folder.
-
-## Authors
-- Elias Marcon MSc. | @eliasmarcon
-- Ing. Fabian Steiner BSc. | @fasteiner
-- Jan Langela Regincos BSc. | @janpilu
